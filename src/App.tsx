@@ -1,11 +1,14 @@
 import React from 'react';
 
 import './App.css';
+import ViewPageHeader from './components/EmployeeView/ViewPageHeader';
+import WebView from './components/EmployeeView/WebView';
 
 function App() {
   return (
     <div>
-      <h2>Hello World</h2>
+<ViewPageHeader/>
+<WebView />
     </div>
   );
 }
