@@ -1,0 +1,10 @@
+.button-display {
+  display: flex;
+  justify-content: flex-end;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.card-button {
+  display:flex;
+}

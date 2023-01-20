@@ -1,24 +1,19 @@
 import React from "react";
+
 import "./Card.css";
+import ActionsButton from "./ActionsButton";
+import CardContent from "./CardContent";
 
-
-type Props = {
+type ICard = {
   children?: React.ReactNode;
 };
 
-const Card: React.FC<Props> = (props) => {
+const Card: React.FC<ICard> = ({ children }) => {
   return (
-
-<div className="card">
-      <div className="list-display">
-        <ul className="list-style">{props.children}</ul>
-      </div>
-      <div className="button-display">
-        <button className="card-button">Hi</button>
-      </div>
+    <div className="card">
+      <CardContent>{children}</CardContent>
+      <ActionsButton />
     </div>
-
-    
   );
 };
 
