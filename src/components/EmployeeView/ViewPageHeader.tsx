@@ -1,6 +1,5 @@
 import "./ViewPageHeader.css";
 import { AddCircle } from "@mui/icons-material";
-import { Button } from "@mui/material";
 
 function ViewPageHeader() {
   const handleAddEmployee = () => {
@@ -8,13 +7,14 @@ function ViewPageHeader() {
   };
 
   return (
-    <div className="header">
-      <div>
-        <strong>Employees</strong>
+    <div className="webpage-header">
+      <div className="header__title">
+        <h3>Employees</h3>
       </div>
 
-      <div>
-        <Button onClick={handleAddEmployee} className="add-button"><AddCircle /> Add Employee</Button>
+      <div className="header__button-container">
+        <button onClick={handleAddEmployee} className="header__add-button"><AddCircle />
+        <strong>&nbsp;&nbsp;Add Employee</strong></button>
       </div>
     </div>
   );
