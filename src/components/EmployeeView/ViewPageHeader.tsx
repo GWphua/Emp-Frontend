@@ -1,13 +1,19 @@
-function ViewPageHeader() {
-  return (
-    <div>
-      <span>
-        <strong>Employees</strong>
-      </span>
+import "./ViewPageHeader.css";
 
-      <span className="flushed-right">
-        <button>Add Employee</button>
-      </span>
+function ViewPageHeader() {
+  const handleAddEmployee = () => {
+    console.log("HELLO");
+  };
+
+  return (
+    <div className="header">
+      <div>
+        <strong>Employees</strong>
+      </div>
+
+      <div>
+        <button onClick={handleAddEmployee}>Add Employee</button>
+      </div>
     </div>
   );
 }
