@@ -3,6 +3,7 @@
   justify-content: flex-end;
   border-spacing: 0;
   width: 100%;
+  align-items: center;
 }
 
 .card-button {

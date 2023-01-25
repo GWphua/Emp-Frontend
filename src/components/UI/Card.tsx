@@ -11,13 +11,8 @@ type ICard = {
 const Card: React.FC<ICard> = ({ children }) => {
   return (
     <div className="card">
-      <div>
-        <CardContent>{children}</CardContent>
-      </div>
-
-      <div>
-        <ActionsButton />
-      </div>
+      <CardContent>{children}</CardContent>
+      <ActionsButton />
     </div>
   );
 };

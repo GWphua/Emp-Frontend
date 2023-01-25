@@ -2,7 +2,13 @@
   border-radius: 5px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   background-color: seashell;
-  width: 40%;
+  width: 100%;
   justify-content: space-between;
   display: flex;
+}
+
+.card__button-display {
+  display:flex;
+  align-items: center;
+
 }
