@@ -3,7 +3,7 @@ import "./WebView.css";
 
 function WebView(props: any) {
   return (
-    <div>
+    <div className="card-container">
       <Card>
         <li>Hello1</li>
         <li>Hello2</li>
