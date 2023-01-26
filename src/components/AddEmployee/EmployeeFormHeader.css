@@ -1,4 +1,4 @@
-.header__add-button {
+.header__back-button {
   color: white;
   background-color: green;
   padding-top: 0.5rem;
@@ -13,7 +13,7 @@
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
 }
 
-.header__add-button:hover {
+.header__back-button:hover {
   background-color:black;
   cursor: pointer;
 }

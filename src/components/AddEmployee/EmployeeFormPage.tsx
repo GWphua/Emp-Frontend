@@ -1,18 +1,14 @@
-import './EmployeeFormPage.css';
-import {FC, useRef} from 'react';
+import { FC } from "react";
+import EmployeeFormHeader from "./EmployeeFormHeader";
+import EmployeeFormBody from "./EmployeeFormBody";
 
 const EmployeeFormPage: FC = () => {
-  const textInputRef = useRef<HTMLInputElement>(null);
-
-  const todoSubmitHandler = (event: React.FormEvent) => {
-    event.preventDefault();
-    const enteredText = textInputRef.current!.value;
-    console.log(enteredText);
-  }
-
   return (
-  <h1>EmployeeForm Page</h1>
-  )
-}
+    <>
+      <EmployeeFormHeader />
+      <EmployeeFormBody />
+    </>
+  );
+};
 
 export default EmployeeFormPage;
