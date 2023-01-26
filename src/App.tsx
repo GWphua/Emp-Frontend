@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
-import ViewPageHeader from './components/EmployeeView/ViewPageHeader';
-import WebView from './components/EmployeeView/WebView';
+import "./App.css";
+import EmployeeFormPage from "./components/AddEmployee/EmployeeFormPage";
+import HomePage from "./components/EmployeeView/HomePage";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+const router = createBrowserRouter([
+  { path: "/", element: <HomePage /> },
+  { path: "/employee-form", element: <EmployeeFormPage /> },
+]);
 
 function App() {
-  return (
-    <div>
-<ViewPageHeader/>
-<WebView />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -4,7 +4,7 @@ import "./Card.css";
 import ActionsButton from "./ActionsButton";
 import CardContent from "./CardContent";
 
-type ICard = {
+interface ICard {
   children?: React.ReactNode;
 };
 
