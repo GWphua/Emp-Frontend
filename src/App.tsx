@@ -7,10 +7,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage />, errorElement: <ErrorPage />, children: [
-    { path: "/employee-form", element: <EmployeeFormPage /> },
-  ] },
-  
+  { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },
+  { path: "/employee-form", element: <EmployeeFormPage /> },
 ]);
 
 function App() {
