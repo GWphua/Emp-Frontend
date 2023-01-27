@@ -1,7 +1,8 @@
 import { FC } from "react";
+import "./EmployeeFormBody.css";
 
 const EmployeeFormBody: FC = () => {
-  return <h1>HELLO WORLD!</h1>;
+  return <div className="form-body"></div>;
 };
 
 export default EmployeeFormBody;
