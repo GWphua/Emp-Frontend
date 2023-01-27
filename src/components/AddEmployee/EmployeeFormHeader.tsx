@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
-import { screenResize } from "../../store/screenData";
+import { screenResize } from "../../store/screen";
 import WebpageHeader from "../UI/WebpageHeader";
 
 import "./EmployeeFormHeader.css";

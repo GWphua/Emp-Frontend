@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import screenReducer from "./screenData";
+import screenReducer from "./screen";
 
 const store = configureStore({
   reducer: { screen: screenReducer },
