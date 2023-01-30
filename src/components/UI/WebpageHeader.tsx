@@ -12,10 +12,7 @@ const WebpageHeader: FC<IHeader> = ({ children, header }) => {
       <div className="header__title">
         <h3>{header}</h3>
       </div>
-      <div className="header__button-container">
-        {children}
-        
-        </div>
+      <div className="header__button-container">{children}</div>
     </div>
   );
 };

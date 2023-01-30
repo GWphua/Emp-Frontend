@@ -8,13 +8,15 @@ const EmployeeFormBody: FC = () => {
   const [salary, setSalary] = useState(0);
   const [department, setDepartment] = useState("HR");
 
-  const screenWidth = useSelector((state: RootState) => state.screen.screenWidth);
-  const screenHeight = useSelector((state: RootState) => state.screen.screenHeight);
+  const screenWidth = useSelector(
+    (state: RootState) => state.screen.screenWidth
+  );
+  const screenHeight = useSelector(
+    (state: RootState) => state.screen.screenHeight
+  );
 
   const formStyle =
-    screenHeight < screenWidth
-      ? "form__body__circle"
-      : "form__body__box";
+    screenHeight < screenWidth ? "form__body__circle" : "form__body__box";
 
   const handleEmployeeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmployee(event.target.value);
@@ -39,34 +41,46 @@ const EmployeeFormBody: FC = () => {
   return (
     <div className={formStyle}>
       <form onSubmit={submitHandler} onReset={resetHandler}>
-        <div className="title">Create Employee</div>
-        <div className="subtitle">Enter Employee details below!</div>
-        <div className="input-container">
+        <div className="form__title">Create Employee</div>
+        <div className="form__subtitle">Enter Employee details below!</div>
+        <div className="form__input-container">
           <label>Employee Name</label>
           <input
             type="text"
+            className="form__input"
             onChange={handleEmployeeChange}
             value={employee}
           ></input>
         </div>
-        <div className="input-container">
+        <div className="form__input-container">
           <label>Salary</label>
           <input
             type="number"
             min="0"
             onChange={handleSalaryChange}
             value={salary}
+            className="form__input"
           ></input>
         </div>
-        <div className="input-container">
+        <div className="form__input-container">
           <label>Department</label>
-          <select onChange={handleDepartmentChange} value={department}>
+          <select
+            onChange={handleDepartmentChange}
+            value={department}
+            className="form__input"
+          >
             <option>HR</option>
             <option>PS</option>
           </select>
         </div>
-        <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
+        <div className="form__button-container">
+          <button type="reset" className="form__reset">
+            Reset
+          </button>
+          <button type="submit" className="form__submit">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
