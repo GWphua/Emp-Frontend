@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
-import { screenResize } from "../../store/screen";
+import { screenResize, ScreenState } from "../../store/screen";
 import WebpageHeader from "../UI/WebpageHeader";
 
 import "./HomePageHeader.css";
@@ -14,10 +14,14 @@ const HomePageHeader: FC = () => {
     (state: RootState) => state.screen.screenWidth
   );
 
-  const dispatch: Dispatch<PayloadAction<number>> = useDispatch();
+  const dispatch: Dispatch<PayloadAction<ScreenState>> = useDispatch();
 
   window.addEventListener("resize", () => {
-    dispatch(screenResize(window.innerWidth));
+    const newState: ScreenState = {
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    };
+    dispatch(screenResize(newState));
   });
 
   return (
