@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface screenState {
+interface ScreenState {
   screenWidth: number;
 }
 
-const initialState: screenState = {
+const initialState: ScreenState = {
   screenWidth: window.innerWidth,
 };
 
@@ -12,7 +12,7 @@ const screenSlice = createSlice({
   name: "screen",
   initialState,
   reducers: {
-    screenResize: (state: screenState, actions: PayloadAction<number>) => {
+    screenResize: (state: ScreenState, actions: PayloadAction<number>) => {
       state.screenWidth = actions.payload;
     },
   },

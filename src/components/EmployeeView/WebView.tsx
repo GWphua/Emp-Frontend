@@ -1,8 +1,12 @@
-import Card from "../UI/Card";
 import { Grid } from "@mui/material";
+import { FC } from "react";
+import Card from "../UI/Card";
 import "./WebView.css";
+import axios from "axios";
 
-function WebView() {
+const WebView: FC = () => {
+ 
+
   return (
     <div className="card-container">
       <Grid container spacing={3}>
@@ -41,6 +45,6 @@ function WebView() {
       </Grid>
     </div>
   );
-}
+};
 
 export default WebView;
