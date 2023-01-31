@@ -8,13 +8,13 @@ interface ICard {
   children?: React.ReactNode;
 };
 
-const Card: React.FC<ICard> = ({ children }) => {
+const EmployeeCard: React.FC<ICard> = ({ children }) => {
   return (
-    <div className="card">
+    <div className="employee__card">
       <CardContent>{children}</CardContent>
       <ActionsButton />
     </div>
   );
 };
 
-export default Card;
+export default EmployeeCard;

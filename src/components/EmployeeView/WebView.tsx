@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 import { RootState } from "../../store";
 import { fetchEmployees } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import Card from "../UI/Card";
+import EmployeeCard from "../UI/EmployeeCard/Card";
 import "./WebView.css";
 
 const WebView: FC = () => {
@@ -25,11 +25,11 @@ const WebView: FC = () => {
       <Grid container spacing={8}>
         {employees.map((item) => (
           <Grid item xs={12} md={6} key={item.id}>
-            <Card>
+            <EmployeeCard>
               <li className="employee__name">{item.name}</li>
               <li className="employee__details">{item.department}</li>
               <li className="employee__details">{item.salary}</li>
-            </Card>
+            </EmployeeCard>
           </Grid>
         ))}
       </Grid>

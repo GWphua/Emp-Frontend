@@ -1,12 +1,21 @@
 import { ChangeEvent, FC, FormEventHandler, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
-import { useAppSelector } from "../../store/hooks";
+import { createEmployee } from "../../store/Employees/employees";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import "./EmployeeFormBody.css";
 
+export interface EmployeeFormData {
+  name: string;
+  salary: number;
+  department: "HR" | "PS";
+}
+
 const EmployeeFormBody: FC = () => {
+  const navigate = useNavigate();
   const [employee, setEmployee] = useState("");
   const [salary, setSalary] = useState(0);
-  const [department, setDepartment] = useState("HR");
+  const [department, setDepartment] = useState<"HR" | "PS">("HR");
 
   const screenWidth = useAppSelector(
     (state: RootState) => state.screen.screenWidth
@@ -21,18 +30,40 @@ const EmployeeFormBody: FC = () => {
   const handleEmployeeChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmployee(event.target.value);
   };
+
   const handleSalaryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSalary(+event.target.value);
   };
-  const handleDepartmentChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setDepartment(event.target.value);
+
+  //TODO LATER
+  const handleInvalidSubmission = () => {
+    resetHandler();
   };
 
+  const handleDepartmentChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === "HR" || event.target.value === "PS") {
+      setDepartment(event.target.value);
+    } else {
+      handleInvalidSubmission();
+    }
+  };
+
+  const dispatch = useAppDispatch();
   const submitHandler: FormEventHandler = (event) => {
     event.preventDefault();
+
+    const employeeSubmissionData = {
+      name: employee,
+      salary: salary,
+      department: department,
+    } as EmployeeFormData;
+
+    dispatch(createEmployee(employeeSubmissionData));
+
+    navigate("/");
   };
 
-  const resetHandler: FormEventHandler = () => {
+  const resetHandler = () => {
     setEmployee("");
     setSalary(0);
     setDepartment("HR");

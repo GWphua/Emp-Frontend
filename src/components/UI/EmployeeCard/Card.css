@@ -1,4 +1,4 @@
-.card {
+.employee__card {
   border-radius: 5px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   background-color: seashell;
@@ -7,8 +7,3 @@
   display: flex;
 }
 
-.card__button-display {
-  display:flex;
-  align-items: center;
-
-}

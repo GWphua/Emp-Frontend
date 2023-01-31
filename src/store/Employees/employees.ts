@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { EmployeeFormData } from "../../components/AddEmployee/EmployeeFormBody";
 import {
   CreateEmployeeResponse,
   GetAllEmployeesResponse,
@@ -29,20 +30,19 @@ export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
   return response.data as GetAllEmployeesResponse;
 });
 
-export const createEmployee = createAsyncThunk("createEmployee", async () => {
-  const response = await axios({
-    method: "post",
-    url: EMPLOYEE_URL,
-    data: {
-      name: "string",
-      salary: 0,
-      department: "HR",
-    },
-    responseType: "json",
-  });
-  console.log(response);
-  return response.data as CreateEmployeeResponse;
-});
+export const createEmployee = createAsyncThunk(
+  "createEmployee",
+  async (employeeFormData: EmployeeFormData) => {
+    const response = await axios({
+      method: "post",
+      url: EMPLOYEE_URL,
+      data: employeeFormData,
+      responseType: "json",
+    });
+    console.log(response);
+    return response.data as CreateEmployeeResponse;
+  }
+);
 
 const employeesSlice = createSlice({
   name: "employees",
