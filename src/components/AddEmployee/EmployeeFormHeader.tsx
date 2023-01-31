@@ -1,9 +1,9 @@
 import { ArrowCircleLeft } from "@mui/icons-material";
-import { Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
+import { useAppDispatch } from "../../store/hooks";
 import { screenResize, ScreenState } from "../../store/screen";
 import WebpageHeader from "../UI/WebpageHeader";
 
@@ -14,7 +14,7 @@ const EmployeeFormHeader: FC = () => {
     (state: RootState) => state.screen.screenWidth
   );
 
- const dispatch: Dispatch<PayloadAction<ScreenState>> = useDispatch();
+  const dispatch = useAppDispatch();
 
   window.addEventListener("resize", () => {
     const newState: ScreenState = {
