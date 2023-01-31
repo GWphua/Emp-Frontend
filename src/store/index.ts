@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import employeeReducer from "./employees";
+import employeeReducer from "./Employees/employees";
 import screenReducer from "./screen";
 
 const store = configureStore({

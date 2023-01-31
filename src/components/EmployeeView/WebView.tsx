@@ -1,15 +1,14 @@
 import { Grid } from "@mui/material";
 import { FC, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { fetchEmployees } from "../../store/employees";
-import { useAppDispatch } from "../../store/hooks";
+import { fetchEmployees } from "../../store/Employees/employees";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import Card from "../UI/Card";
 import "./WebView.css";
 
 const WebView: FC = () => {
   const employees =
-    useSelector((state: RootState) => state.employee.employees) ?? [];
+    useAppSelector((state: RootState) => state.employee.employees) ?? [];
 
   const dispatch = useAppDispatch();
 

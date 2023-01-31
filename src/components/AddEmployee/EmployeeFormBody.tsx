@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, FormEventHandler, useState } from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { useAppSelector } from "../../store/hooks";
 import "./EmployeeFormBody.css";
 
 const EmployeeFormBody: FC = () => {
@@ -8,10 +8,10 @@ const EmployeeFormBody: FC = () => {
   const [salary, setSalary] = useState(0);
   const [department, setDepartment] = useState("HR");
 
-  const screenWidth = useSelector(
+  const screenWidth = useAppSelector(
     (state: RootState) => state.screen.screenWidth
   );
-  const screenHeight = useSelector(
+  const screenHeight = useAppSelector(
     (state: RootState) => state.screen.screenHeight
   );
 

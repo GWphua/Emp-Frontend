@@ -1,14 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+  CreateEmployeeResponse,
+  GetAllEmployeesResponse,
+} from "./responseType";
 
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
 
-interface Employee {
+export type Employee = {
   id: number;
   name: string;
   salary: number;
   department: "HR" | "PS";
-}
+};
 
 export interface EmployeesState {
   employees?: Employee[];
@@ -22,7 +26,22 @@ export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
     responseType: "json",
   });
   console.log(response);
-  return response.data as EmployeesState;
+  return response.data as GetAllEmployeesResponse;
+});
+
+export const createEmployee = createAsyncThunk("createEmployee", async () => {
+  const response = await axios({
+    method: "post",
+    url: EMPLOYEE_URL,
+    data: {
+      name: "string",
+      salary: 0,
+      department: "HR",
+    },
+    responseType: "json",
+  });
+  console.log(response);
+  return response.data as CreateEmployeeResponse;
 });
 
 const employeesSlice = createSlice({
@@ -34,6 +53,7 @@ const employeesSlice = createSlice({
       fetchEmployees.fulfilled,
       (state: EmployeesState, action: PayloadAction<EmployeesState>) => {
         const allEmployees: Employee[] = [];
+
         action.payload.employees?.forEach((employee) => {
           allEmployees.push(employee);
         });

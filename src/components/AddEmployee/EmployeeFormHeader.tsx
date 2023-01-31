@@ -1,16 +1,15 @@
 import { ArrowCircleLeft } from "@mui/icons-material";
 import { FC } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { screenResize, ScreenState } from "../../store/screen";
 import WebpageHeader from "../UI/WebpageHeader";
 
 import "./EmployeeFormHeader.css";
 
 const EmployeeFormHeader: FC = () => {
-  const screenWidth = useSelector(
+  const screenWidth = useAppSelector(
     (state: RootState) => state.screen.screenWidth
   );
 
