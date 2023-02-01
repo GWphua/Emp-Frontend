@@ -1,11 +1,13 @@
+import { Delete, Edit } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { Edit } from "@mui/icons-material";
-import { Delete } from "@mui/icons-material";
-import "./ActionsButton.css";
-import { selectEmployee } from "../../../store/Employees/employees";
-import { useAppDispatch } from "../../../store/hooks";
 import { useNavigate } from "react-router-dom";
+import {
+  deleteEmployee,
+  selectEmployee,
+} from "../../../store/Employees/employees";
 import { Employee } from "../../../store/Employees/employeeType";
+import { useAppDispatch } from "../../../store/hooks";
+import "./ActionsButton.css";
 
 type ICardActions = {
   employee: Employee;
@@ -21,8 +23,9 @@ const ActionsButton: React.FC<ICardActions> = ({ employee }) => {
     navigate("/employee-form", { state: { mode: "Edit", employee: employee } });
   };
 
-  const handleDeleteEmployee = (event: React.MouseEvent<HTMLElement>) => {
-    console.log("Delete clicked");
+  const handleDeleteEmployee = () => {
+    dispatch(selectEmployee(employee));
+    dispatch(deleteEmployee(employee));
   };
 
   return (

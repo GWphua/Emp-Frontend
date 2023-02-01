@@ -17,6 +17,7 @@ export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
     url: EMPLOYEE_URL,
     responseType: "json",
   });
+
   console.log(response);
   return response.data as GetAllEmployeesResponse;
 });
@@ -30,6 +31,7 @@ export const createEmployee = createAsyncThunk(
       data: createEmployeeData,
       responseType: "json",
     });
+
     console.log(response);
     return response.data as CreateEmployeeResponse;
   }
@@ -47,7 +49,7 @@ export const updateEmployee = createAsyncThunk(
       data: updateEmployeeData.employeeFormData,
       responseType: "json",
     });
-    console.log(updateEmployeeData);
+
     console.log(response);
     return response.data as UpdateEmployeeResponse;
   }
@@ -55,7 +57,16 @@ export const updateEmployee = createAsyncThunk(
 
 export const deleteEmployee = createAsyncThunk(
   "deleteEmployee",
-  async (deleteEmployeeData: EmployeeFormData) => {}
+  async (deleteEmployeeData: Employee) => {
+    const response = await axios({
+      method: "delete",
+      url: EMPLOYEE_URL + deleteEmployeeData.id,
+      responseType: "json",
+    });
+
+    console.log(response);
+    return;
+  }
 );
 
 const employeesSlice = createSlice({
@@ -84,6 +95,20 @@ const employeesSlice = createSlice({
           });
         }
         state.employees = allEmployees;
+      }
+    );
+    builder.addCase(
+      deleteEmployee.fulfilled,
+      (state: EmployeesState, action) => {
+        if (state.employees !== undefined) {
+          if (state.referencedEmployee !== undefined) {
+            state.employees.splice(
+              state.employees.findIndex(
+                (item) => item === state.referencedEmployee
+              )
+            );
+          }
+        }
       }
     );
   },
