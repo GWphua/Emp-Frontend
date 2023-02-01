@@ -23,17 +23,13 @@ const WebView: FC = () => {
   return (
     <div className="card-container">
       <Grid container spacing={8}>
-        {employees.map((item) => (
-          <Grid item xs={12} md={6} key={item.id}>
-            <EmployeeCard>
-              <li className="employee__name">{item.name}</li>
-              <li className="employee__details">{item.department}</li>
-              <li className="employee__details">{item.salary}</li>
-            </EmployeeCard>
+        {employees.map((employee) => (
+          <Grid item xs={12} md={6} key={employee.id}>
+            <EmployeeCard employee={employee} />
           </Grid>
         ))}
       </Grid>
-
+  
       <div className="footer">
         Showing{" "}
         <strong>

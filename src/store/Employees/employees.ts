@@ -3,22 +3,13 @@ import axios from "axios";
 import { EmployeeFormData } from "../../components/AddEmployee/EmployeeFormBody";
 import {
   CreateEmployeeResponse,
+  Employee,
+  EmployeesState,
   GetAllEmployeesResponse,
-} from "./responseType";
+  UpdateEmployeeResponse,
+} from "./employeeType";
 
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
-
-export type Employee = {
-  id: number;
-  name: string;
-  salary: number;
-  department: "HR" | "PS";
-};
-
-export interface EmployeesState {
-  employees?: Employee[];
-  lastEmployee?: Employee;
-}
 
 export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
   const response = await axios({
@@ -32,11 +23,11 @@ export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
 
 export const createEmployee = createAsyncThunk(
   "createEmployee",
-  async (employeeFormData: EmployeeFormData) => {
+  async (createEmployeeData: EmployeeFormData) => {
     const response = await axios({
       method: "post",
       url: EMPLOYEE_URL,
-      data: employeeFormData,
+      data: createEmployeeData,
       responseType: "json",
     });
     console.log(response);
@@ -44,24 +35,59 @@ export const createEmployee = createAsyncThunk(
   }
 );
 
+export const updateEmployee = createAsyncThunk(
+  "updateEmployee",
+  async (updateEmployeeData: {
+    id: number;
+    employeeFormData: EmployeeFormData;
+  }) => {
+    const response = await axios({
+      method: "put",
+      url: EMPLOYEE_URL + updateEmployeeData.id,
+      data: updateEmployeeData.employeeFormData,
+      responseType: "json",
+    });
+    console.log(updateEmployeeData);
+    console.log(response);
+    return response.data as UpdateEmployeeResponse;
+  }
+);
+
+export const deleteEmployee = createAsyncThunk(
+  "deleteEmployee",
+  async (deleteEmployeeData: EmployeeFormData) => {}
+);
+
 const employeesSlice = createSlice({
   name: "employees",
   initialState: {} as EmployeesState,
-  reducers: {},
+  reducers: {
+    selectEmployee: (
+      state: EmployeesState,
+      actions: PayloadAction<Employee>
+    ) => {
+      state.referencedEmployee = actions.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(
       fetchEmployees.fulfilled,
-      (state: EmployeesState, action: PayloadAction<EmployeesState>) => {
+      (
+        state: EmployeesState,
+        action: PayloadAction<GetAllEmployeesResponse>
+      ) => {
         const allEmployees: Employee[] = [];
 
-        action.payload.employees?.forEach((employee) => {
-          allEmployees.push(employee);
-        });
-
+        if (action.payload.employees !== undefined) {
+          action.payload.employees.forEach((employee) => {
+            allEmployees.push(employee);
+          });
+        }
         state.employees = allEmployees;
       }
     );
   },
 });
 
+export const { selectEmployee } = employeesSlice.actions;
 export default employeesSlice.reducer;

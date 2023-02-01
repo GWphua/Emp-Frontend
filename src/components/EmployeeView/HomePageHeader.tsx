@@ -25,7 +25,7 @@ const HomePageHeader: FC = () => {
 
   return (
     <WebpageHeader header="Employees">
-      <Link className="header__button-link" to="/employee-form">
+      <Link className="header__button-link" to="/employee-form" state={{mode: "Add"}}>
         {screenWidth <= 899 ? (
           <AddCircle className="header__small-viewport" />
         ) : (

@@ -1,7 +1,11 @@
-import { ChangeEvent, FC, FormEventHandler, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { ChangeEvent, FC, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
-import { createEmployee } from "../../store/Employees/employees";
+import {
+  createEmployee,
+  updateEmployee
+} from "../../store/Employees/employees";
+import { Employee } from "../../store/Employees/employeeType";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import "./EmployeeFormBody.css";
 
@@ -12,7 +16,6 @@ export interface EmployeeFormData {
 }
 
 const EmployeeFormBody: FC = () => {
-  const navigate = useNavigate();
   const [employee, setEmployee] = useState("");
   const [salary, setSalary] = useState(0);
   const [department, setDepartment] = useState<"HR" | "PS">("HR");
@@ -49,16 +52,36 @@ const EmployeeFormBody: FC = () => {
   };
 
   const dispatch = useAppDispatch();
-  const submitHandler: FormEventHandler = (event) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const formSettings = location.state as {
+    mode: "Add" | "Edit";
+    employee?: Employee;
+  };
+
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const employeeSubmissionData = {
+    const employeeFormData = {
       name: employee,
       salary: salary,
       department: department,
     } as EmployeeFormData;
 
-    dispatch(createEmployee(employeeSubmissionData));
+    if (formSettings.mode === "Add") {
+      console.log("ADDING");
+      
+      await dispatch(createEmployee(employeeFormData));
+    } else if (formSettings.mode === "Edit") {
+      console.log("EDITING");
+
+    const employeeUpdateData = {
+      id: formSettings.employee!.id,
+      employeeFormData: employeeFormData
+    };
+
+      await dispatch(updateEmployee(employeeUpdateData));
+    }
 
     navigate("/");
   };

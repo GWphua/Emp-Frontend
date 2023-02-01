@@ -3,16 +3,17 @@ import React from "react";
 import "./Card.css";
 import ActionsButton from "./ActionsButton";
 import CardContent from "./CardContent";
+import { Employee } from "../../../store/Employees/employeeType";
 
 interface ICard {
-  children?: React.ReactNode;
-};
+  employee: Employee;
+}
 
-const EmployeeCard: React.FC<ICard> = ({ children }) => {
+const EmployeeCard: React.FC<ICard> = ({ employee }) => {
   return (
     <div className="employee__card">
-      <CardContent>{children}</CardContent>
-      <ActionsButton />
+      <CardContent employee={employee} />
+      <ActionsButton employee={employee} />
     </div>
   );
 };
