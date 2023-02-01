@@ -100,17 +100,6 @@ const employeesSlice = createSlice({
         state.employees = allEmployees;
       }
     );
-    builder.addCase(deleteEmployee.fulfilled, (state: EmployeesState) => {
-      if (state.employees !== undefined) {
-        if (state.referencedEmployee !== undefined) {
-          state.employees.splice(
-            state.employees.findIndex(
-              (item) => item === state.referencedEmployee
-            )
-          );
-        }
-      }
-    });
   },
 });
 

@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import {
   deleteEmployee,
+  fetchEmployees,
   selectEmployee,
   unselectEmployee,
 } from "../../../store/Employees/employees";
@@ -27,8 +28,8 @@ const ActionsButton: React.FC<ICardActions> = ({ employee }) => {
   const handleDeleteEmployee = async () => {
     dispatch(selectEmployee(employee));
     await dispatch(deleteEmployee(employee));
-    console.log("DELETED");
     dispatch(unselectEmployee());
+    await dispatch(fetchEmployees());
   };
 
   return (
