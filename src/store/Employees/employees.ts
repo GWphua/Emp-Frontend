@@ -79,6 +79,9 @@ const employeesSlice = createSlice({
     ) => {
       state.referencedEmployee = actions.payload;
     },
+    unselectEmployee: (state: EmployeesState) => {
+      state.referencedEmployee = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -97,22 +100,19 @@ const employeesSlice = createSlice({
         state.employees = allEmployees;
       }
     );
-    builder.addCase(
-      deleteEmployee.fulfilled,
-      (state: EmployeesState, action) => {
-        if (state.employees !== undefined) {
-          if (state.referencedEmployee !== undefined) {
-            state.employees.splice(
-              state.employees.findIndex(
-                (item) => item === state.referencedEmployee
-              )
-            );
-          }
+    builder.addCase(deleteEmployee.fulfilled, (state: EmployeesState) => {
+      if (state.employees !== undefined) {
+        if (state.referencedEmployee !== undefined) {
+          state.employees.splice(
+            state.employees.findIndex(
+              (item) => item === state.referencedEmployee
+            )
+          );
         }
       }
-    );
+    });
   },
 });
 
-export const { selectEmployee } = employeesSlice.actions;
+export const { selectEmployee, unselectEmployee } = employeesSlice.actions;
 export default employeesSlice.reducer;

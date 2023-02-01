@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   deleteEmployee,
   selectEmployee,
+  unselectEmployee,
 } from "../../../store/Employees/employees";
 import { Employee } from "../../../store/Employees/employeeType";
 import { useAppDispatch } from "../../../store/hooks";
@@ -20,12 +21,14 @@ const ActionsButton: React.FC<ICardActions> = ({ employee }) => {
   const handleEditEmployee = () => {
     console.log("Edit clicked");
     dispatch(selectEmployee(employee));
-    navigate("/employee-form", { state: { mode: "Edit", employee: employee } });
+    navigate("/employee-form", { state: { mode: "Edit" } });
   };
 
-  const handleDeleteEmployee = () => {
+  const handleDeleteEmployee = async () => {
     dispatch(selectEmployee(employee));
-    dispatch(deleteEmployee(employee));
+    await dispatch(deleteEmployee(employee));
+    console.log("DELETED");
+    dispatch(unselectEmployee());
   };
 
   return (

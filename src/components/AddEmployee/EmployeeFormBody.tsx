@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import {
   createEmployee,
-  updateEmployee
+  unselectEmployee,
+  updateEmployee,
 } from "../../store/Employees/employees";
-import { Employee } from "../../store/Employees/employeeType";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import "./EmployeeFormBody.css";
 
@@ -16,13 +16,10 @@ export interface EmployeeFormData {
 }
 
 const EmployeeFormBody: FC = () => {
-  const [employee, setEmployee] = useState("");
-  const [salary, setSalary] = useState(0);
-  const [department, setDepartment] = useState<"HR" | "PS">("HR");
-
   const screenWidth = useAppSelector(
     (state: RootState) => state.screen.screenWidth
   );
+
   const screenHeight = useAppSelector(
     (state: RootState) => state.screen.screenHeight
   );
@@ -30,16 +27,33 @@ const EmployeeFormBody: FC = () => {
   const formStyle =
     screenHeight < screenWidth ? "form__body__circle" : "form__body__box";
 
+  const employee = useAppSelector(
+    (state: RootState) => state.employee.referencedEmployee
+  );
+
+  const defaultFormValues = {
+    name: employee ? employee.name : "",
+    salary: employee ? employee.salary : 0,
+    department: employee ? employee.department : "HR",
+  };
+
+  const [name, setName] = useState(defaultFormValues.name);
+  const [salary, setSalary] = useState(defaultFormValues.salary);
+  const [department, setDepartment] = useState<"HR" | "PS">(
+    defaultFormValues.department
+  );
+
   const handleEmployeeChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmployee(event.target.value);
+    setName(event.target.value);
   };
 
   const handleSalaryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSalary(+event.target.value);
   };
 
-  //TODO LATER
   const handleInvalidSubmission = () => {
+    // Handle Invalid Submission here
+
     resetHandler();
   };
 
@@ -54,42 +68,40 @@ const EmployeeFormBody: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const formSettings = location.state as {
-    mode: "Add" | "Edit";
-    employee?: Employee;
-  };
+  const { mode } = location.state;
 
   const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const employeeFormData = {
-      name: employee,
+      name: name,
       salary: salary,
       department: department,
     } as EmployeeFormData;
 
-    if (formSettings.mode === "Add") {
+    if (mode === "Add") {
       console.log("ADDING");
-      
+
       await dispatch(createEmployee(employeeFormData));
-    } else if (formSettings.mode === "Edit") {
+    } else if (mode === "Edit") {
       console.log("EDITING");
 
-    const employeeUpdateData = {
-      id: formSettings.employee!.id,
-      employeeFormData: employeeFormData
-    };
+      const employeeUpdateData = {
+        id: employee!.id,
+        employeeFormData: employeeFormData,
+      };
 
       await dispatch(updateEmployee(employeeUpdateData));
     }
 
+    dispatch(unselectEmployee);
     navigate("/");
   };
 
   const resetHandler = () => {
-    setEmployee("");
-    setSalary(0);
-    setDepartment("HR");
+    setName(defaultFormValues.name);
+    setSalary(defaultFormValues.salary);
+    setDepartment(defaultFormValues.department);
   };
 
   return (
@@ -103,7 +115,7 @@ const EmployeeFormBody: FC = () => {
             type="text"
             className="form__input"
             onChange={handleEmployeeChange}
-            value={employee}
+            value={name}
           ></input>
         </div>
         <div className="form__input-container">
