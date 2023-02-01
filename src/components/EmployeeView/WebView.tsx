@@ -20,6 +20,19 @@ const WebView: FC = () => {
   let startIndex = employeeCount < 1 ? 0 : 1;
   let endIndex = employeeCount < startIndex + 10 ? employeeCount : 10;
 
+  let footerContent =
+    employeeCount === 0 ? (
+      <>Please add some employees.</>
+    ) : (
+      <>
+        Showing{" "}
+        <strong>
+          {startIndex} - {endIndex}
+        </strong>{" "}
+        out of <strong>{employees.length}</strong> entries.
+      </>
+    );
+
   return (
     <div className="card-container">
       <Grid container spacing={8}>
@@ -29,14 +42,8 @@ const WebView: FC = () => {
           </Grid>
         ))}
       </Grid>
-  
-      <div className="footer">
-        Showing{" "}
-        <strong>
-          {startIndex} - {endIndex}
-        </strong>{" "}
-        out of <strong>{employees.length}</strong> entries.
-      </div>
+
+      <div className="footer">{footerContent}</div>
     </div>
   );
 };
