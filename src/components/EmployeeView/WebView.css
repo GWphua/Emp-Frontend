@@ -4,7 +4,6 @@
   margin-right: 4rem;
 }
 
-
 .employee__name {
   color: #365271;
   font-size: 30px;
@@ -22,4 +21,24 @@
   color: #365271;
   font-size: 26px;
   font-weight: 450;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 899px) {
+  .footer {
+    font-size: 20px;
+    display: block;
+  }
+
+  .footer__pages {
+    display: flex;
+    width: 100%;
+  }
+
+  .footer_pagination {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import { FC, useEffect } from "react";
 import { RootState } from "../../store";
 import { fetchEmployees } from "../../store/Employees/employees";
@@ -20,18 +20,26 @@ const WebView: FC = () => {
   let startIndex = employeeCount < 1 ? 0 : 1;
   let endIndex = employeeCount < startIndex + 10 ? employeeCount : 10;
 
-  let footerContent =
-    employeeCount === 0 ? (
-      <>Please add some employees.</>
-    ) : (
-      <>
-        Showing{" "}
-        <strong>
-          {startIndex} - {endIndex}
-        </strong>{" "}
-        out of <strong>{employees.length}</strong> entries.
-      </>
-    );
+  const GetFooterContent: FC = () => {
+    if (employeeCount === 0) {
+      return <>Please add some employees.</>;
+    } else {
+      return (
+        <>
+          <div className="footer__pages">
+            Showing&nbsp;
+            <strong>
+              {startIndex} - {endIndex}
+            </strong>
+            &nbsp;out of&nbsp;<strong>{employees.length}</strong>&nbsp;entries.
+          </div>
+          <div className="footer__pagination">
+            <Pagination count={10} size="medium"></Pagination>
+          </div>
+        </>
+      );
+    }
+  };
 
   return (
     <div className="card-container">
@@ -42,8 +50,9 @@ const WebView: FC = () => {
           </Grid>
         ))}
       </Grid>
-
-      <div className="footer">{footerContent}</div>
+      <div className="footer">
+        <GetFooterContent />
+      </div>
     </div>
   );
 };

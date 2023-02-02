@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { screenResize, ScreenState } from "../../store/screen";
-import WebpageHeader from "../UI/WebpageHeader";
+import WebpageHeader from "../UI/PageView/WebpageHeader";
 
 import "./HomePageHeader.css";
 

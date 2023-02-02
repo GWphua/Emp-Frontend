@@ -6,9 +6,9 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { screenResize, ScreenState } from "../../store/screen";
 import WebpageHeader from "../UI/PageView/WebpageHeader";
 
-import "./EmployeeFormHeader.css";
+import "./ErrorPageHeader.css";
 
-const EmployeeFormHeader: FC = () => {
+const ErrorPageHeader: FC = () => {
   const screenWidth = useAppSelector(
     (state: RootState) => state.screen.screenWidth
   );
@@ -24,8 +24,9 @@ const EmployeeFormHeader: FC = () => {
   });
 
   console.log(screenWidth);
+
   return (
-    <WebpageHeader header="Employee Form">
+    <WebpageHeader header="Routing Error">
       <Link className="header__button-link" to="/">
         {screenWidth <= 899 ? (
           <ArrowCircleLeft className="header__small-viewport" />
@@ -40,4 +41,4 @@ const EmployeeFormHeader: FC = () => {
   );
 };
 
-export default EmployeeFormHeader;
+export default ErrorPageHeader;

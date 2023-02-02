@@ -1,5 +1,13 @@
+import ErrorPageBody from "./ErrorPageBody";
+import ErrorPageHeader from "./ErrorPageHeader";
+
 function ErrorPage() {
-  return <h1>Error: Please ensure correct URL is entered.</h1>;
+  return (
+    <>
+      <ErrorPageHeader />
+      <ErrorPageBody />
+    </>
+  );
 }
 
 export default ErrorPage;
