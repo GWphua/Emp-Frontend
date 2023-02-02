@@ -1,3 +1,4 @@
+import "./Paginator.css";
 import { Dispatch, FC, SetStateAction } from "react";
 
 interface IPaginator {
@@ -21,14 +22,23 @@ const Paginator: FC<IPaginator> = ({
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const paginatorButtonStyle = (pageNumber: number) => {
+    return pageNumber === currentPage
+      ? "paginator__page-selected"
+      : "paginator__page-link";
+  };
+
   return (
-    <nav>
-      <ul className="pagination">
+    <nav className="paginator__position">
+      <ul className="paginator">
         {pageNumbers.map((number) => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="#" className="page-link">
+          <li key={number} className="paginator__page-number">
+            <button
+              onClick={() => paginate(number)}
+              className={paginatorButtonStyle(number)}
+            >
               {number}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

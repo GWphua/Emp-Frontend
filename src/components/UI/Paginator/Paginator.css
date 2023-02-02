@@ -1,0 +1,44 @@
+nav {
+  display: flex;
+}
+
+.paginator {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+}
+
+.paginator__page-number {
+  border-radius: 5%;
+  list-style: none;
+  display: flex;
+  border-width: 1px;
+  justify-content: center;
+}
+
+.paginator__page-link {
+  margin-right: 0.25rem;
+  cursor: pointer;
+  border: none;
+  height: 35px;
+  width: 35px;
+  background-color: aliceblue;
+}
+
+.paginator__page-selected {
+  margin-right: 0.25rem;
+  cursor: pointer;
+  border: none;
+  height: 35px;
+  width: 35px;
+  background-color: #bde0ff;
+}
+
+.paginator__page-link:hover {
+  background-color: beige;
+}
+
+.paginator__page-selected:hover {
+  background-color: beige;
+}

@@ -32,14 +32,13 @@ const HomePageFooter: FC<IHomePageFooter> = ({
           </strong>
           &nbsp;out of&nbsp;<strong>{employeeCount}</strong>&nbsp;entries.
         </div>
-        <div className="footer__pagination">
-          <Paginator
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            postsPerPage={postsPerPage}
-            totalPosts={employeeCount}
-          ></Paginator>
-        </div>
+
+        <Paginator
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          postsPerPage={postsPerPage}
+          totalPosts={employeeCount}
+        ></Paginator>
       </div>
     );
   }

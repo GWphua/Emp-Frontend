@@ -29,7 +29,6 @@ const WebView: FC = () => {
     indexOfLastEmployee
   );
 
-
   // Automatically shifts to previous page if all Employees are removed.
   useEffect(() => {
     if (currentEmployees.length === 0) {
