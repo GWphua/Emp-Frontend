@@ -29,6 +29,16 @@ const WebView: FC = () => {
     indexOfLastEmployee
   );
 
+
+  // Automatically shifts to previous page if all Employees are removed.
+  useEffect(() => {
+    if (currentEmployees.length === 0) {
+      if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    }
+  }, [currentEmployees, currentPage]);
+
   return (
     <div className="card-container">
       <Grid container spacing={8}>
