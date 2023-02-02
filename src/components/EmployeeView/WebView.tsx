@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { RootState } from "../../store";
 import { fetchEmployees } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -17,16 +17,35 @@ const WebView: FC = () => {
     dispatch(fetchEmployees());
   }, [dispatch]);
 
+  let employeeCount = employees.length;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
+
+  const indexOfLastEmployee = currentPage * postsPerPage;
+  const indexOfFirstEmployee = indexOfLastEmployee - postsPerPage;
+  const currentEmployees = employees.slice(
+    indexOfFirstEmployee,
+    indexOfLastEmployee
+  );
+
   return (
     <div className="card-container">
       <Grid container spacing={8}>
-        {employees.map((employee) => (
+        {currentEmployees.map((employee) => (
           <Grid item xs={12} md={6} key={employee.id}>
             <EmployeeCard employee={employee} />
           </Grid>
         ))}
       </Grid>
-      <HomePageFooter employees={employees} />
+      <HomePageFooter
+        employeeCount={employeeCount}
+        indexOfFirstEmployee={indexOfFirstEmployee}
+        indexOfLastEmployee={indexOfLastEmployee}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        postsPerPage={postsPerPage}
+      />
     </div>
   );
 };

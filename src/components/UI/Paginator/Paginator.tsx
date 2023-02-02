@@ -1,28 +1,38 @@
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
 interface IPaginator {
-  nPages: number;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  postsPerPage: number;
+  totalPosts: number;
 }
 
-const Paginator: FC<IPaginator> = ({ nPages, currentPage, setCurrentPage }) => {
+const Paginator: FC<IPaginator> = ({
+  currentPage,
+  setCurrentPage,
+  postsPerPage,
+  totalPosts,
+}) => {
   // Generating increasing sequence of length nPages.
-  const pageNumbers = Array.from({ length: nPages }, (_, index) => index + 1);
-  const prevPage = () => {};
+  const pageNumbers = Array.from(
+    { length: Math.ceil(totalPosts / postsPerPage) },
+    (_, index) => index + 1
+  );
 
-  const nextPage = () => {};
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <>
-      <ul>
-        <li>
-          <a className="page-link" onClick={prevPage} href="#">
-            Previous
-          </a>
-        </li>
+    <nav>
+      <ul className="pagination">
+        {pageNumbers.map((number) => (
+          <li key={number} className="page-item">
+            <a onClick={() => paginate(number)} href="#" className="page-link">
+              {number}
+            </a>
+          </li>
+        ))}
       </ul>
-    </>
+    </nav>
   );
 };
 

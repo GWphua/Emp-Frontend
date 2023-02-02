@@ -1,17 +1,24 @@
+import { Dispatch, FC, SetStateAction } from "react";
+import Paginator from "../UI/Paginator/Paginator";
 import "./HomePageFooter.css";
-import { FC } from "react";
-import { Employee } from "../../store/Employees/employeeType";
-import { Pagination } from "@mui/material";
 
 interface IHomePageFooter {
-  employees: Employee[];
+  employeeCount: number;
+  indexOfFirstEmployee: number;
+  indexOfLastEmployee: number;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  postsPerPage: number;
 }
 
-const HomePageFooter: FC<IHomePageFooter> = ({ employees }) => {
-  let employeeCount = employees.length;
-  let startIndex = employeeCount < 1 ? 0 : 1;
-  let endIndex = employeeCount < startIndex + 10 ? employeeCount : 10;
-
+const HomePageFooter: FC<IHomePageFooter> = ({
+  employeeCount,
+  indexOfFirstEmployee,
+  indexOfLastEmployee,
+  currentPage,
+  setCurrentPage,
+  postsPerPage,
+}) => {
   if (employeeCount === 0) {
     return <div className="footer">Please add some employees.</div>;
   } else {
@@ -20,15 +27,18 @@ const HomePageFooter: FC<IHomePageFooter> = ({ employees }) => {
         <div className="footer__pages">
           Showing&nbsp;
           <strong>
-            {startIndex} - {endIndex}
+            {indexOfFirstEmployee + 1}&nbsp;-&nbsp;
+            {Math.min(indexOfLastEmployee, employeeCount)}
           </strong>
-          &nbsp;out of&nbsp;<strong>{employees.length}</strong>&nbsp;entries.
+          &nbsp;out of&nbsp;<strong>{employeeCount}</strong>&nbsp;entries.
         </div>
         <div className="footer__pagination">
-          
-          
-          <Pagination count={10} size="medium"></Pagination>
-          
+          <Paginator
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            postsPerPage={postsPerPage}
+            totalPosts={employeeCount}
+          ></Paginator>
         </div>
       </div>
     );
