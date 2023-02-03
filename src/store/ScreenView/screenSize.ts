@@ -10,16 +10,19 @@ const initialState: ScreenSizeState = {
   screenHeight: window.innerHeight,
 };
 
-const screenSlice = createSlice({
-  name: "screen",
+const screenSizeSlice = createSlice({
+  name: "screenResize",
   initialState,
   reducers: {
-    screenResize: (state: ScreenSizeState, actions: PayloadAction<ScreenSizeState>) => {
+    screenResize: (
+      state: ScreenSizeState,
+      actions: PayloadAction<ScreenSizeState>
+    ) => {
       state.screenWidth = actions.payload.screenWidth;
       state.screenHeight = actions.payload.screenHeight;
     },
   },
 });
 
-export const { screenResize } = screenSlice.actions;
-export default screenSlice.reducer;
+export const { screenResize } = screenSizeSlice.actions;
+export default screenSizeSlice.reducer;

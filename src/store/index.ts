@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import employeeReducer from "./Employees/employees";
-import screenReducer from "./ScreenView/screenSize";
+import screenSizeReducer from "./ScreenView/screenSize";
+import screenSettingsReducer from "./ScreenView/screenSettings";
 
 const store = configureStore({
-  reducer: { screen: screenReducer, employee: employeeReducer },
+  reducer: {
+    screenSize: screenSizeReducer,
+    screenSettings: screenSettingsReducer,
+    employee: employeeReducer,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

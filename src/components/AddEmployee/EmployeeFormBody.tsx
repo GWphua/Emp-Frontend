@@ -17,11 +17,11 @@ export interface EmployeeFormData {
 
 const EmployeeFormBody: FC = () => {
   const screenWidth = useAppSelector(
-    (state: RootState) => state.screen.screenWidth
+    (state: RootState) => state.screenSize.screenWidth
   );
 
   const screenHeight = useAppSelector(
-    (state: RootState) => state.screen.screenHeight
+    (state: RootState) => state.screenSize.screenHeight
   );
 
   const formStyle =

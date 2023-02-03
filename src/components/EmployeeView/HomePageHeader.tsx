@@ -10,7 +10,7 @@ import "./HomePageHeader.css";
 
 const HomePageHeader: FC = () => {
   const screenWidth = useAppSelector(
-    (state: RootState) => state.screen.screenWidth
+    (state: RootState) => state.screenSize.screenWidth
   );
 
   const dispatch = useAppDispatch();
