@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import employeeReducer from "./Employees/employees";
-import screenReducer from "./screen";
+import screenReducer from "./ScreenView/screenSize";
 
 const store = configureStore({
   reducer: { screen: screenReducer, employee: employeeReducer },

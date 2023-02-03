@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { screenResize, ScreenState } from "../../store/screen";
+import { screenResize, ScreenSizeState } from "../../store/ScreenView/screenSize";
 import WebpageHeader from "../UI/PageView/WebpageHeader";
 
 import "./HomePageHeader.css";
@@ -16,7 +16,7 @@ const HomePageHeader: FC = () => {
   const dispatch = useAppDispatch();
 
   window.addEventListener("resize", () => {
-    const newState: ScreenState = {
+    const newState: ScreenSizeState = {
       screenWidth: window.innerWidth,
       screenHeight: window.innerHeight,
     };
