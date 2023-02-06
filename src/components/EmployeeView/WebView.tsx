@@ -4,6 +4,7 @@ import { RootState } from "../../store";
 import { fetchEmployees } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import EmployeeCard from "../UI/EmployeeCard/Card";
+import ModalComponent from "../UI/Modal/ModalComponent";
 import HomePageFooter from "./HomePageFooter";
 import "./WebView.css";
 
@@ -55,6 +56,7 @@ const WebView: FC = () => {
         setCurrentPage={setCurrentPage}
         postsPerPage={postsPerPage}
       />
+      <ModalComponent type="employee"></ModalComponent>
     </div>
   );
 };
