@@ -1,50 +1,28 @@
-import classes from "./ModalComponent.module.css";
-
 import { FC } from "react";
-import Modal from "react-modal";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { RootState } from "../../../store";
-import { toggleModal } from "../../../store/ScreenView/screenSettings";
-import { unselectEmployee } from "../../../store/Employees/employees";
+import { useAppSelector } from "../../../store/hooks";
+import "./ModalComponent.css";
 
 interface IModalComponent {
-  title: string;
-  appElement: HTMLElement;
   children: React.ReactNode;
 }
 
-const ModalComponent: FC<IModalComponent> = ({
-  title,
-  appElement,
-  children,
-}) => {
+const ModalComponent: FC<IModalComponent> = ({ children }) => {
   const modalIsOpen = useAppSelector(
     (state: RootState) => state.screenSettings.modalIsOpen
   );
 
-  const dispatch = useAppDispatch();
-
-  const closeModal = () => {
-    dispatch(unselectEmployee());
-    dispatch(toggleModal(false));
-  };
-
-  console.log(appElement);
-
-  return (
-    <Modal
-      appElement={appElement}
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      style={classes}
-      contentLabel="Modal"
-      className="modal"
-    >
-      <h2>{title}</h2>
-      <button onClick={closeModal}>close</button>
-      {children}
-    </Modal>
-  );
+  if (!modalIsOpen) {
+    console.log(modalIsOpen);
+    return null;
+  } else {
+    console.log(modalIsOpen);
+    return (
+      <div className="modal__container">
+        <div className="modal">{children}</div>
+      </div>
+    );
+  }
 };
 
 export default ModalComponent;
