@@ -1,9 +1,8 @@
-import React from "react";
-
+import { FC } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import EmployeeFormPage from "./components/AddEmployee/EmployeeFormPage";
 import HomePage from "./components/EmployeeView/HomePage";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
@@ -11,8 +10,8 @@ const router = createBrowserRouter([
   { path: "/employee-form", element: <EmployeeFormPage /> },
 ]);
 
-function App() {
+const App: FC = () => {
   return <RouterProvider router={router} />;
-}
+};
 
 export default App;
