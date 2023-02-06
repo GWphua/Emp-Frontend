@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface ScreenSettingsState {
-  isBlur: boolean;
+  modalIsOpen: boolean;
 }
 
 const initialState: ScreenSettingsState = {
-  isBlur: false,
+  modalIsOpen: false,
 };
 
 const screenSettingsSlice = createSlice({
   name: "screenSettings",
   initialState,
   reducers: {
-    screenBlur: (
+    toggleModal: (
       state: ScreenSettingsState,
       actions: PayloadAction<boolean>
     ) => {
-      state.isBlur = actions.payload;
+      state.modalIsOpen = actions.payload;
     },
   },
 });
 
-export const { screenBlur } = screenSettingsSlice.actions;
+export const { toggleModal } = screenSettingsSlice.actions;
 export default screenSettingsSlice.reducer;

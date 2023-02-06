@@ -58,6 +58,7 @@ export const updateEmployee = createAsyncThunk(
 export const deleteEmployee = createAsyncThunk(
   "deleteEmployee",
   async (deleteEmployeeData: Employee) => {
+    console.log(deleteEmployeeData);
     const response = await axios({
       method: "delete",
       url: EMPLOYEE_URL + deleteEmployeeData.id,
