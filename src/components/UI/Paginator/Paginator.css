@@ -17,7 +17,7 @@ nav {
   justify-content: center;
 }
 
-.paginator__page-link {
+.paginator__button {
   margin-right: 0.25rem;
   cursor: pointer;
   border: none;
@@ -26,19 +26,15 @@ nav {
   background-color: aliceblue;
 }
 
-.paginator__page-selected {
-  margin-right: 0.25rem;
-  cursor: pointer;
-  border: none;
-  height: 35px;
-  width: 35px;
+.paginator__button.selected {
   background-color: #bde0ff;
 }
 
-.paginator__page-link:hover {
+.paginator__button:hover {
   background-color: beige;
 }
 
-.paginator__page-selected:hover {
-  background-color: beige;
+.paginator__button.disabled {
+  background-color:gainsboro;
+  cursor: default;
 }

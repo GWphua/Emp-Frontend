@@ -1,5 +1,6 @@
 import "./Paginator.css";
 import { Dispatch, FC, SetStateAction } from "react";
+import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 
 interface IPaginator {
   currentPage: number;
@@ -20,27 +21,46 @@ const Paginator: FC<IPaginator> = ({
     (_, index) => index + 1
   );
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const paginatorButtonStyle = (pageNumber: number) => {
-    return pageNumber === currentPage
-      ? "paginator__page-selected"
-      : "paginator__page-link";
-  };
+  const paginateToPageNumber = (pageNumber: number) =>
+    setCurrentPage(pageNumber);
 
   return (
     <nav className="paginator__position">
       <ul className="paginator">
+        <li key="prev" className="paginator__page-number">
+          <button
+            onClick={() => paginateToPageNumber(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`paginator__button ${
+              currentPage === 1 ? "disabled" : ""
+            }`}
+          >
+            <ArrowLeft />
+          </button>
+        </li>
         {pageNumbers.map((number) => (
           <li key={number} className="paginator__page-number">
             <button
-              onClick={() => paginate(number)}
-              className={paginatorButtonStyle(number)}
+              onClick={() => paginateToPageNumber(number)}
+              className={`paginator__button ${
+                number === currentPage ? "selected" : ""
+              }`}
             >
               {number}
             </button>
           </li>
         ))}
+        <li key="next" className="paginator__page-number">
+          <button
+            onClick={() => paginateToPageNumber(currentPage + 1)}
+            disabled={currentPage === pageNumbers.length}
+            className={`paginator__button ${
+              currentPage === pageNumbers.length ? "disabled" : ""
+            }`}
+          >
+            <ArrowRight />
+          </button>
+        </li>
       </ul>
     </nav>
   );
