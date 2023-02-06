@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { RootState } from "../../../store";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { useAppSelector } from "../../../store/hooks";
 import EmployeeModal from "./employeeModal";
 import "./ModalComponent.css";
 
@@ -15,10 +15,9 @@ const ModalComponent: FC<IModalComponent> = ({ type }) => {
     (state: RootState) => state.screenSettings.modalIsOpen
   );
 
-  const dispatch = useAppDispatch();
-
-  let modalType: { [key: string]: ReactNode } = {
+  const modalType: { [key: string]: ReactNode } = {
     employee: <EmployeeModal />,
+    // Add more modal types in the future.
   };
 
   if (!modalIsOpen) {
@@ -26,11 +25,11 @@ const ModalComponent: FC<IModalComponent> = ({ type }) => {
     return null;
   } else {
     console.log(modalIsOpen);
-    return <div className="modal-container">
-<div className="modal">{modalType[type]}</div>
-    </div>
-    
-    ;
+    return (
+      <div className="modal__container">
+        <div className="modal">{modalType[type]}</div>
+      </div>
+    );
   }
 };
 

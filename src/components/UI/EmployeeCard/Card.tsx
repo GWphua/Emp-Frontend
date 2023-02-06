@@ -9,9 +9,13 @@ import { RootState } from "../../../store";
 
 interface ICard {
   employee: Employee;
+  openDeleteEmployeeModal: (employee: Employee) => void;
 }
 
-const EmployeeCard: React.FC<ICard> = ({ employee }) => {
+const EmployeeCard: React.FC<ICard> = ({
+  employee,
+  openDeleteEmployeeModal,
+}) => {
   const selectedEmployee = useAppSelector(
     (state: RootState) => state.employee.referencedEmployee
   );
@@ -23,7 +27,10 @@ const EmployeeCard: React.FC<ICard> = ({ employee }) => {
       }`}
     >
       <CardContent employee={employee} />
-      <ActionsButton employee={employee} />
+      <ActionsButton
+        openDeleteEmployeeModal={openDeleteEmployeeModal}
+        employee={employee}
+      />
     </div>
   );
 };

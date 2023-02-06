@@ -1,8 +1,13 @@
 import { Grid } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { RootState } from "../../store";
-import { fetchEmployees } from "../../store/Employees/employees";
+import {
+  fetchEmployees,
+  selectEmployee,
+} from "../../store/Employees/employees";
+import { Employee } from "../../store/Employees/employeeType";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { openModal } from "../../store/ScreenView/screenSettings";
 import EmployeeCard from "../UI/EmployeeCard/Card";
 import ModalComponent from "../UI/Modal/ModalComponent";
 import HomePageFooter from "./HomePageFooter";
@@ -39,12 +44,20 @@ const WebView: FC = () => {
     }
   }, [currentEmployees, currentPage]);
 
+  const openDeleteEmployeeModal = (employee: Employee) => {
+    dispatch(selectEmployee(employee));
+    dispatch(openModal());
+  };
+
   return (
     <div className="card-container">
       <Grid container spacing={8}>
-        {currentEmployees.map((employee) => (
+        {currentEmployees.map((employee: Employee) => (
           <Grid item xs={12} md={6} key={employee.id}>
-            <EmployeeCard employee={employee} />
+            <EmployeeCard
+              openDeleteEmployeeModal={openDeleteEmployeeModal}
+              employee={employee}
+            />
           </Grid>
         ))}
       </Grid>
