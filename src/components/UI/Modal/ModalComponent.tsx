@@ -13,16 +13,16 @@ const ModalComponent: FC<IModalComponent> = ({ children }) => {
   );
 
   if (!modalIsOpen) {
-    console.log(modalIsOpen);
     return null;
-  } else {
-    console.log(modalIsOpen);
-    return (
+  }
+
+  return (
+    <div className="modal__page-overlay">
       <div className="modal__container">
         <div className="modal">{children}</div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default ModalComponent;
