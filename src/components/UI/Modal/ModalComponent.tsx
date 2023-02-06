@@ -17,10 +17,8 @@ const ModalComponent: FC<IModalComponent> = ({ children }) => {
   }
 
   return (
-    <div className="modal__page-overlay">
-      <div className="modal__container">
-        <div className="modal">{children}</div>
-      </div>
+    <div className="modal__container">
+      <div className="modal">{children}</div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const EmployeeModalContent: FC = () => {
     (state: RootState) => state.employee.referencedEmployee
   );
 
-  const closeEmployeeModal = () => {
+  const destroyModal = () => {
     dispatch(unselectEmployee());
     dispatch(closeModal());
   };
@@ -25,7 +25,7 @@ const EmployeeModalContent: FC = () => {
       dispatch(deleteEmployee(selectedEmployee));
       dispatch(fetchEmployees());
     }
-    closeEmployeeModal();
+    destroyModal();
   };
 
   return (
@@ -36,7 +36,7 @@ const EmployeeModalContent: FC = () => {
       </h2>
 
       <div className="modal__button-container">
-        <button className="modal__close-button" onClick={closeEmployeeModal}>
+        <button className="modal__close-button" onClick={destroyModal}>
           Close Modal
         </button>
         <button className="modal__delete-button" onClick={onEmployeeDelete}>
