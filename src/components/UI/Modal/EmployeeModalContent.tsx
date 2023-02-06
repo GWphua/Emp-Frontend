@@ -7,9 +7,9 @@ import {
 } from "../../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { closeModal } from "../../../store/ScreenView/screenSettings";
-import "./employeeModal.css";
+import "./EmployeeModalContent.css";
 
-const EmployeeModal: FC = () => {
+const EmployeeModalContent: FC = () => {
   const dispatch = useAppDispatch();
   const selectedEmployee = useAppSelector(
     (state: RootState) => state.employee.referencedEmployee
@@ -47,4 +47,4 @@ const EmployeeModal: FC = () => {
   );
 };
 
-export default EmployeeModal;
+export default EmployeeModalContent;

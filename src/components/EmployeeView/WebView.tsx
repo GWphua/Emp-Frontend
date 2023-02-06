@@ -9,6 +9,7 @@ import { Employee } from "../../store/Employees/employeeType";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { openModal } from "../../store/ScreenView/screenSettings";
 import EmployeeCard from "../UI/EmployeeCard/Card";
+import EmployeeModalContent from "../UI/Modal/EmployeeModalContent";
 import ModalComponent from "../UI/Modal/ModalComponent";
 import HomePageFooter from "./HomePageFooter";
 import "./WebView.css";
@@ -69,7 +70,9 @@ const WebView: FC = () => {
         setCurrentPage={setCurrentPage}
         postsPerPage={postsPerPage}
       />
-      <ModalComponent type="employee"></ModalComponent>
+      <ModalComponent>
+        <EmployeeModalContent />
+      </ModalComponent>
     </div>
   );
 };
