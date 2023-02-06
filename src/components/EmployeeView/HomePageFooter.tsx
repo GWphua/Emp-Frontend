@@ -33,12 +33,14 @@ const HomePageFooter: FC<IHomePageFooter> = ({
           &nbsp;out of&nbsp;<strong>{employeeCount}</strong>&nbsp;entries.
         </div>
 
-        <Paginator
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          postsPerPage={postsPerPage}
-          totalPosts={employeeCount}
-        ></Paginator>
+        {employeeCount > 10 && (
+          <Paginator
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            postsPerPage={postsPerPage}
+            totalPosts={employeeCount}
+          ></Paginator>
+        )}
       </div>
     );
   }
