@@ -7,6 +7,7 @@ import {
   updateEmployee,
 } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { CreatedToast, InfoToast, InvalidToast } from "../UI/Toast/ToastTypes";
 import "./EmployeeFormBody.css";
 
 export interface EmployeeFormData {
@@ -51,18 +52,58 @@ const EmployeeFormBody: FC = () => {
     setSalary(+event.target.value);
   };
 
-  const handleInvalidSubmission = () => {
-    // Handle Invalid Submission here
-
-    resetHandler();
+  const handleInvalidSubmission = (message: string) => {
+    InvalidToast.showToast(message);
   };
 
   const handleDepartmentChange = (event: ChangeEvent<HTMLSelectElement>) => {
     if (event.target.value === "HR" || event.target.value === "PS") {
       setDepartment(event.target.value);
     } else {
-      handleInvalidSubmission();
+      handleInvalidSubmission("Department values can only be 'HR' or 'PS'");
     }
+  };
+
+  const isValidName = (name: string): boolean => {
+    if (!name) {
+      handleInvalidSubmission("Name cannot be empty!");
+      return false;
+    } else if (name.length < 4) {
+      handleInvalidSubmission("Name should have a minimum of 4 characters!");
+      return false;
+    } else if (name.length > 30) {
+      handleInvalidSubmission("Name should have a maximum of 30 characters!");
+      return false;
+    } else if (name.match(/\d/)) {
+      handleInvalidSubmission("Name should not contain any numbers!");
+      return false;
+    }
+
+    return true;
+  };
+
+  const validateSalary = (salary: number): boolean => {
+    if (salary <= 0) {
+      handleInvalidSubmission("Salary cannot be equal or less than 0!");
+      return false;
+    }
+
+    return true;
+  };
+
+  const isValidForm = (employeeFormData: EmployeeFormData): boolean => {
+    const isValidFormName = isValidName(employeeFormData.name);
+    const isValidFormSalary = validateSalary(employeeFormData.salary);
+
+    return isValidFormName && isValidFormSalary;
+  };
+
+  const notEdited = (employeeFormData: EmployeeFormData): boolean => {
+    return (
+      employeeFormData.name === defaultFormValues.name &&
+      employeeFormData.salary === defaultFormValues.salary &&
+      employeeFormData.department === defaultFormValues.department
+    );
   };
 
   const dispatch = useAppDispatch();
@@ -79,12 +120,18 @@ const EmployeeFormBody: FC = () => {
       department: department,
     } as EmployeeFormData;
 
-    if (mode === "Add") {
-      console.log("ADDING");
+    if (!isValidForm(employeeFormData)) {
+      return;
+    }
 
+    if (mode === "Add") {
       await dispatch(createEmployee(employeeFormData));
+      CreatedToast.showToast(name);
     } else if (mode === "Edit") {
-      console.log("EDITING");
+      if (notEdited(employeeFormData)) {
+        handleInvalidSubmission("Edit fields are unchanged!");
+        return;
+      }
 
       const employeeUpdateData = {
         id: employee!.id,
@@ -92,6 +139,7 @@ const EmployeeFormBody: FC = () => {
       };
 
       await dispatch(updateEmployee(employeeUpdateData));
+      CreatedToast.showToast(name);
     }
 
     dispatch(unselectEmployee);
@@ -102,6 +150,7 @@ const EmployeeFormBody: FC = () => {
     setName(defaultFormValues.name);
     setSalary(defaultFormValues.salary);
     setDepartment(defaultFormValues.department);
+    InfoToast.showToast("Form Reset");
   };
 
   return (

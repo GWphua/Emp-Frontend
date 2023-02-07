@@ -4,6 +4,7 @@ import "./App.css";
 import EmployeeFormPage from "./components/AddEmployee/EmployeeFormPage";
 import HomePage from "./components/EmployeeView/HomePage";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
+import { Toast } from "./components/UI/Toast/Toast";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },
@@ -11,7 +12,12 @@ const router = createBrowserRouter([
 ]);
 
 const App: FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Toast />
+      <RouterProvider router={router} />
+    </>
+  );
 };
 
 export default App;

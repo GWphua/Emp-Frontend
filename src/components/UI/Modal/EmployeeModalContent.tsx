@@ -7,6 +7,7 @@ import {
 } from "../../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { closeModal } from "../../../store/ScreenView/screenSettings";
+import { DeletedToast } from "../Toast/ToastTypes";
 import "./EmployeeModalContent.css";
 
 const EmployeeModalContent: FC = () => {
@@ -20,9 +21,10 @@ const EmployeeModalContent: FC = () => {
     dispatch(closeModal());
   };
 
-  const onEmployeeDelete = () => {
+  const onEmployeeDelete = async () => {
     if (selectedEmployee != null) {
-      dispatch(deleteEmployee(selectedEmployee));
+      await dispatch(deleteEmployee(selectedEmployee));
+      DeletedToast.showToast(selectedEmployee.name);
       dispatch(fetchEmployees());
     }
     destroyModal();
