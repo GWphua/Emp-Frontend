@@ -8,7 +8,11 @@ import { Toast } from "./components/UI/Toast/Toast";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },
-  { path: "/employee-form", element: <EmployeeFormPage /> },
+  {
+    path: "/employee-form",
+    element: <EmployeeFormPage />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 const App: FC = () => {

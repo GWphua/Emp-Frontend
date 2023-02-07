@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { EmployeeFormData } from "../../components/AddEmployee/EmployeeFormBody";
+import { ErrorToast } from "../../components/UI/Toast/ToastTypes";
 import {
   CreateEmployeeResponse,
   Employee,
@@ -12,14 +13,22 @@ import {
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
 
 export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
-  const response = await axios({
-    method: "get",
-    url: EMPLOYEE_URL,
-    responseType: "json",
-  });
+  try {
+    const response = await axios({
+      method: "get",
+      url: EMPLOYEE_URL,
+      responseType: "json",
+    });
 
-  console.log(response);
-  return response.data as GetAllEmployeesResponse;
+    console.log(response);
+    return response.data as GetAllEmployeesResponse;
+  } catch (error: unknown) {
+    if (error === null || error === undefined) {
+      ErrorToast.showToast("Cannot get Employees from backend");
+    } else {
+      ErrorToast.showToast(error.toString());
+    }
+  }
 });
 
 export const createEmployee = createAsyncThunk(
@@ -89,9 +98,14 @@ const employeesSlice = createSlice({
       fetchEmployees.fulfilled,
       (
         state: EmployeesState,
-        action: PayloadAction<GetAllEmployeesResponse>
+        action: PayloadAction<GetAllEmployeesResponse | undefined>
       ) => {
         const allEmployees: Employee[] = [];
+
+        if (action.payload === undefined) {
+          state.employees = allEmployees;
+          return;
+        }
 
         if (action.payload.employees !== undefined) {
           action.payload.employees.forEach((employee) => {
