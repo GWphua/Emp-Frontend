@@ -12,6 +12,14 @@ import {
 
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
 
+const handleError = (error: unknown) => {
+  if (error === null || error === undefined) {
+    ErrorToast.showToast("Failed to get data from backend.");
+  } else {
+    ErrorToast.showToast(error.toString());
+  }
+};
+
 export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
   try {
     const response = await axios({
@@ -20,29 +28,33 @@ export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
       responseType: "json",
     });
 
-    console.log(response);
-    return response.data as GetAllEmployeesResponse;
+    return new GetAllEmployeesResponse(response.data.employees);
   } catch (error: unknown) {
-    if (error === null || error === undefined) {
-      ErrorToast.showToast("Cannot get Employees from backend");
-    } else {
-      ErrorToast.showToast(error.toString());
-    }
+    handleError(error);
+    return new GetAllEmployeesResponse([]);
   }
 });
 
 export const createEmployee = createAsyncThunk(
   "createEmployee",
   async (createEmployeeData: EmployeeFormData) => {
-    const response = await axios({
-      method: "post",
-      url: EMPLOYEE_URL,
-      data: createEmployeeData,
-      responseType: "json",
-    });
+    try {
+      const response = await axios({
+        method: "post",
+        url: EMPLOYEE_URL,
+        data: createEmployeeData,
+        responseType: "json",
+      });
 
-    console.log(response);
-    return response.data as CreateEmployeeResponse;
+      return new CreateEmployeeResponse(
+        response.data.id,
+        response.data.name,
+        response.data.salary,
+        response.data.department
+      );
+    } catch (error: unknown) {
+      handleError(error);
+    }
   }
 );
 
@@ -52,30 +64,42 @@ export const updateEmployee = createAsyncThunk(
     id: number;
     employeeFormData: EmployeeFormData;
   }) => {
-    const response = await axios({
-      method: "put",
-      url: EMPLOYEE_URL + updateEmployeeData.id,
-      data: updateEmployeeData.employeeFormData,
-      responseType: "json",
-    });
+    try {
+      const response = await axios({
+        method: "put",
+        url: EMPLOYEE_URL + updateEmployeeData.id,
+        data: updateEmployeeData.employeeFormData,
+        responseType: "json",
+      });
 
-    console.log(response);
-    return response.data as UpdateEmployeeResponse;
+      return new UpdateEmployeeResponse(
+        response.data.id,
+        response.data.name,
+        response.data.salary,
+        response.data.department
+      );
+    } catch (error: unknown) {
+      handleError(error);
+    }
   }
 );
 
 export const deleteEmployee = createAsyncThunk(
   "deleteEmployee",
   async (deleteEmployeeData: Employee) => {
-    console.log(deleteEmployeeData);
-    const response = await axios({
-      method: "delete",
-      url: EMPLOYEE_URL + deleteEmployeeData.id,
-      responseType: "json",
-    });
+    try {
+      const response = await axios({
+        method: "delete",
+        url: EMPLOYEE_URL + deleteEmployeeData.id,
+        responseType: "json",
+      });
 
-    console.log(response);
-    return;
+      console.log(response);
+
+      return;
+    } catch (error: unknown) {
+      handleError(error);
+    }
   }
 );
 
@@ -98,20 +122,15 @@ const employeesSlice = createSlice({
       fetchEmployees.fulfilled,
       (
         state: EmployeesState,
-        action: PayloadAction<GetAllEmployeesResponse | undefined>
+        action: PayloadAction<GetAllEmployeesResponse>
       ) => {
         const allEmployees: Employee[] = [];
+        console.log(action.payload);
 
-        if (action.payload === undefined) {
-          state.employees = allEmployees;
-          return;
-        }
+        action.payload.employees.forEach((employee) => {
+          allEmployees.push(employee);
+        });
 
-        if (action.payload.employees !== undefined) {
-          action.payload.employees.forEach((employee) => {
-            allEmployees.push(employee);
-          });
-        }
         state.employees = allEmployees;
       }
     );
