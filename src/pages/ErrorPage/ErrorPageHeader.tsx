@@ -1,11 +1,15 @@
 import { ArrowCircleLeft } from "@mui/icons-material";
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import WebpageHeader from "../../components/PageView/WebpageHeader";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { screenResize, ScreenSizeState } from "../../store/ScreenView/screenSize";
-import WebpageHeader from "../../components/PageView/WebpageHeader";
+import {
+  screenResize,
+  ScreenSizeState
+} from "../../store/ScreenView/screenSize";
 
+import { Button } from "../../components/Button/Button";
 import "./ErrorPageHeader.css";
 
 const ErrorPageHeader: FC = () => {
@@ -23,20 +27,27 @@ const ErrorPageHeader: FC = () => {
     dispatch(screenResize(newState));
   });
 
-  console.log(screenWidth);
+  const navigate = useNavigate();
+  const handleBackToMainPage = () => {
+    navigate("/");
+  };
 
   return (
     <WebpageHeader header="Routing Error">
-      <Link className="header__button-link" to="/">
-        {screenWidth <= 899 ? (
+      {screenWidth <= 899 ? (
+        <Button onClick={handleBackToMainPage}>
           <ArrowCircleLeft className="header__small-viewport" />
-        ) : (
-          <button type="button" className="header__back-button">
-            <ArrowCircleLeft />
-            <strong>&nbsp;&nbsp;Homepage</strong>
-          </button>
-        )}
-      </Link>
+        </Button>
+      ) : (
+        <Button
+          onClick={handleBackToMainPage}
+          backgroundColor="green"
+          hoverColor="black"
+        >
+          <ArrowCircleLeft />
+          <strong>&nbsp;&nbsp;Homepage</strong>
+        </Button>
+      )}
     </WebpageHeader>
   );
 };

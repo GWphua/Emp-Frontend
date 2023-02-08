@@ -7,6 +7,7 @@ import {
 } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { closeModal } from "../../store/ScreenView/screenSettings";
+import { Button } from "../Button/Button";
 import "./EmployeeModalContent.css";
 
 const EmployeeModalContent: FC = () => {
@@ -36,12 +37,12 @@ const EmployeeModalContent: FC = () => {
       </h2>
 
       <div className="modal__button-container">
-        <button className="modal__close-button" onClick={destroyModal}>
+        <Button backgroundColor="rgb(0, 151, 221)" onClick={destroyModal}>
           Close Modal
-        </button>
-        <button className="modal__delete-button" onClick={onEmployeeDelete}>
+        </Button>
+        <Button backgroundColor="rgb(221, 0, 214)" onClick={onEmployeeDelete}>
           Delete
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import { ChangeEvent, FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "../../components/Button/Button";
+import { InfoToast, InvalidToast } from "../../components/Toast/ToastTypes";
 import { RootState } from "../../store";
 import {
   createEmployee,
   unselectEmployee,
-  updateEmployee,
+  updateEmployee
 } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { InfoToast, InvalidToast } from "../../components/Toast/ToastTypes";
 import "./EmployeeFormBody.css";
 
 export interface EmployeeFormData {
@@ -110,7 +111,7 @@ const EmployeeFormBody: FC = () => {
   const location = useLocation();
   const { mode } = location.state;
 
-  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: any) => {
     event.preventDefault();
 
     const employeeFormData = {
@@ -186,12 +187,20 @@ const EmployeeFormBody: FC = () => {
           </select>
         </div>
         <div className="form__button-container">
-          <button type="reset" className="form__reset">
+          <Button
+            buttonType="reset"
+            backgroundColor="rgb(221, 0, 214)"
+            onClick={() => {}}
+          >
             Reset
-          </button>
-          <button type="submit" className="form__submit">
+          </Button>
+          <Button
+            buttonType="submit"
+            backgroundColor="rgb(0, 151, 221)"
+            onClick={() => {}}
+          >
             Submit
-          </button>
+          </Button>
         </div>
       </form>
     </div>

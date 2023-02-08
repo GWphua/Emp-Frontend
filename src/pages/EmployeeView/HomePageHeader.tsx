@@ -1,16 +1,16 @@
 import { AddCircle } from "@mui/icons-material";
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import WebpageHeader from "../../components/PageView/WebpageHeader";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   screenResize,
-  ScreenSizeState,
+  ScreenSizeState
 } from "../../store/ScreenView/screenSize";
-import WebpageHeader from "../../components/PageView/WebpageHeader";
 
-import "./HomePageHeader.css";
 import { Button } from "../../components/Button/Button";
+import "./HomePageHeader.css";
 
 const HomePageHeader: FC = () => {
   const screenWidth = useAppSelector(
@@ -27,22 +27,27 @@ const HomePageHeader: FC = () => {
     dispatch(screenResize(newState));
   });
 
+  const navigate = useNavigate();
+  const handleAddEmployee = () => {
+    navigate("/employee-form", { state: { mode: "Add" } });
+  };
+
   return (
     <WebpageHeader header="Employees">
-      <Link
-        className="header__button-link"
-        to="/employee-form"
-        state={{ mode: "Add" }}
-      >
-        {screenWidth <= 899 ? (
+      {screenWidth <= 899 ? (
+        <Button onClick={handleAddEmployee}>
           <AddCircle className="header__small-viewport" />
-        ) : (
-          <Button color="green">
-            <AddCircle />
-            <strong>&nbsp;&nbsp;Add Employee</strong>
-          </Button>
-        )}
-      </Link>
+        </Button>
+      ) : (
+        <Button
+          onClick={handleAddEmployee}
+          backgroundColor="green"
+          hoverColor="black"
+        >
+          <AddCircle />
+          <strong>&nbsp;&nbsp;Add Employee</strong>
+        </Button>
+      )}
     </WebpageHeader>
   );
 };
