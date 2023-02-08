@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { EmployeeFormData } from "../../components/AddEmployee/EmployeeFormBody";
-import { ErrorToast } from "../../components/UI/Toast/ToastTypes";
+import {
+  CreatedToast,
+  DeletedToast,
+  ErrorToast,
+} from "../../components/UI/Toast/ToastTypes";
 import {
   CreateEmployeeResponse,
   Employee,
@@ -28,10 +32,10 @@ export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
       responseType: "json",
     });
 
-    return new GetAllEmployeesResponse(response.data.employees);
+    return response.data as GetAllEmployeesResponse;
   } catch (error: unknown) {
     handleError(error);
-    return new GetAllEmployeesResponse([]);
+    return { employees: [] } as GetAllEmployeesResponse;
   }
 });
 
@@ -46,12 +50,8 @@ export const createEmployee = createAsyncThunk(
         responseType: "json",
       });
 
-      return new CreateEmployeeResponse(
-        response.data.id,
-        response.data.name,
-        response.data.salary,
-        response.data.department
-      );
+      CreatedToast.showToast(response.data.name);
+      return response.data as CreateEmployeeResponse;
     } catch (error: unknown) {
       handleError(error);
     }
@@ -72,12 +72,8 @@ export const updateEmployee = createAsyncThunk(
         responseType: "json",
       });
 
-      return new UpdateEmployeeResponse(
-        response.data.id,
-        response.data.name,
-        response.data.salary,
-        response.data.department
-      );
+      CreatedToast.showToast(response.data.name);
+      return response.data as UpdateEmployeeResponse;
     } catch (error: unknown) {
       handleError(error);
     }
@@ -88,14 +84,13 @@ export const deleteEmployee = createAsyncThunk(
   "deleteEmployee",
   async (deleteEmployeeData: Employee) => {
     try {
-      const response = await axios({
+      await axios({
         method: "delete",
         url: EMPLOYEE_URL + deleteEmployeeData.id,
         responseType: "json",
       });
 
-      console.log(response);
-
+      DeletedToast.showToast(deleteEmployeeData.name);
       return;
     } catch (error: unknown) {
       handleError(error);
@@ -125,7 +120,6 @@ const employeesSlice = createSlice({
         action: PayloadAction<GetAllEmployeesResponse>
       ) => {
         const allEmployees: Employee[] = [];
-        console.log(action.payload);
 
         action.payload.employees.forEach((employee) => {
           allEmployees.push(employee);

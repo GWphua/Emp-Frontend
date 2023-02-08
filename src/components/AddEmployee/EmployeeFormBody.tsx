@@ -4,10 +4,10 @@ import { RootState } from "../../store";
 import {
   createEmployee,
   unselectEmployee,
-  updateEmployee,
+  updateEmployee
 } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { CreatedToast, InfoToast, InvalidToast } from "../UI/Toast/ToastTypes";
+import { InfoToast, InvalidToast } from "../UI/Toast/ToastTypes";
 import "./EmployeeFormBody.css";
 
 export interface EmployeeFormData {
@@ -126,7 +126,6 @@ const EmployeeFormBody: FC = () => {
 
     if (mode === "Add") {
       await dispatch(createEmployee(employeeFormData));
-      CreatedToast.showToast(name);
     } else if (mode === "Edit") {
       if (notEdited(employeeFormData)) {
         handleInvalidSubmission("Edit fields are unchanged!");
@@ -139,7 +138,6 @@ const EmployeeFormBody: FC = () => {
       };
 
       await dispatch(updateEmployee(employeeUpdateData));
-      CreatedToast.showToast(name);
     }
 
     dispatch(unselectEmployee);
