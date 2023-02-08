@@ -3,10 +3,14 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { screenResize, ScreenSizeState } from "../../store/ScreenView/screenSize";
+import {
+  screenResize,
+  ScreenSizeState,
+} from "../../store/ScreenView/screenSize";
 import WebpageHeader from "../../components/PageView/WebpageHeader";
 
 import "./HomePageHeader.css";
+import { Button } from "../../components/Button/Button";
 
 const HomePageHeader: FC = () => {
   const screenWidth = useAppSelector(
@@ -25,14 +29,18 @@ const HomePageHeader: FC = () => {
 
   return (
     <WebpageHeader header="Employees">
-      <Link className="header__button-link" to="/employee-form" state={{mode: "Add"}}>
+      <Link
+        className="header__button-link"
+        to="/employee-form"
+        state={{ mode: "Add" }}
+      >
         {screenWidth <= 899 ? (
           <AddCircle className="header__small-viewport" />
         ) : (
-          <button type="button" className="header__add-button">
+          <Button color="green">
             <AddCircle />
             <strong>&nbsp;&nbsp;Add Employee</strong>
-          </button>
+          </Button>
         )}
       </Link>
     </WebpageHeader>
