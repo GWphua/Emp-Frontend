@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../../components/Button/Button";
+import Button from "../../components/Button/Button";
 import { InfoToast, InvalidToast } from "../../components/Toast/ToastTypes";
 import { RootState } from "../../store";
 import {

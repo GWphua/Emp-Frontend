@@ -9,7 +9,7 @@ interface IButton {
   children: React.ReactNode;
 }
 
-export const Button: FC<IButton> = ({
+const Button: FC<IButton> = ({
   buttonType = undefined,
   backgroundColor = "transparent",
   hoverColor = backgroundColor,
@@ -18,7 +18,6 @@ export const Button: FC<IButton> = ({
 }) => {
   const [buttonColor, setButtonColor] = useState(backgroundColor);
 
-  // ASK ABOUT USEEFFECT
   useEffect(() => {
     setButtonColor(backgroundColor);
   }, [backgroundColor]);
@@ -40,3 +39,5 @@ export const Button: FC<IButton> = ({
     </button>
   );
 };
+
+export default Button;

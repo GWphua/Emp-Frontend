@@ -9,7 +9,7 @@ import {
   ScreenSizeState
 } from "../../store/ScreenView/screenSize";
 
-import { Button } from "../../components/Button/Button";
+import Button from "../../components/Button/Button";
 import "./EmployeeFormHeader.css";
 
 const EmployeeFormHeader: FC = () => {
@@ -33,20 +33,14 @@ const EmployeeFormHeader: FC = () => {
   };
   return (
     <WebpageHeader header="Employee Form">
-      {screenWidth <= 899 ? (
-        <Button onClick={handleBackToMainPage}>
-          <ArrowCircleLeft className="header__small-viewport" />
-        </Button>
-      ) : (
-        <Button
-          onClick={handleBackToMainPage}
-          backgroundColor="green"
-          hoverColor="black"
-        >
-          <ArrowCircleLeft />
-          <strong>&nbsp;&nbsp;Homepage</strong>
-        </Button>
-      )}
+      <Button
+        onClick={handleBackToMainPage}
+        backgroundColor={screenWidth <= 899 ? "transparent" : "green"}
+        hoverColor={screenWidth <= 899 ? "transparent" : "black"}
+      >
+        <ArrowCircleLeft />
+        {screenWidth > 899 && <strong>&nbsp;&nbsp;Homepage</strong>}
+      </Button>
     </WebpageHeader>
   );
 };

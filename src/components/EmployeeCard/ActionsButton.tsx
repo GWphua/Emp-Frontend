@@ -19,7 +19,6 @@ const ActionsButton: React.FC<ICardActions> = ({
   const navigate = useNavigate();
 
   const handleEditEmployee = () => {
-    console.log("Edit clicked");
     dispatch(selectEmployee(employee));
     navigate("/employee-form", { state: { mode: "Edit" } });
   };

@@ -3,11 +3,11 @@ import { RootState } from "../../store";
 import {
   deleteEmployee,
   fetchEmployees,
-  unselectEmployee
+  unselectEmployee,
 } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { closeModal } from "../../store/ScreenView/screenSettings";
-import { Button } from "../Button/Button";
+import Button from "../Button/Button";
 import "./EmployeeModalContent.css";
 
 const EmployeeModalContent: FC = () => {

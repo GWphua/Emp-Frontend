@@ -9,7 +9,7 @@ import {
   ScreenSizeState
 } from "../../store/ScreenView/screenSize";
 
-import { Button } from "../../components/Button/Button";
+import Button from "../../components/Button/Button";
 import "./HomePageHeader.css";
 
 const HomePageHeader: FC = () => {
@@ -34,20 +34,14 @@ const HomePageHeader: FC = () => {
 
   return (
     <WebpageHeader header="Employees">
-      {screenWidth <= 899 ? (
-        <Button onClick={handleAddEmployee}>
-          <AddCircle className="header__small-viewport" />
-        </Button>
-      ) : (
-        <Button
-          onClick={handleAddEmployee}
-          backgroundColor="green"
-          hoverColor="black"
-        >
-          <AddCircle />
-          <strong>&nbsp;&nbsp;Add Employee</strong>
-        </Button>
-      )}
+      <Button
+        onClick={handleAddEmployee}
+        backgroundColor={screenWidth <= 899 ? "transparent" : "green"}
+        hoverColor={screenWidth <= 899 ? "transparent" : "black"}
+      >
+        <AddCircle />
+        {screenWidth > 899 && <strong>&nbsp;&nbsp;Add Employee</strong>}
+      </Button>
     </WebpageHeader>
   );
 };
