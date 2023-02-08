@@ -1,14 +1,14 @@
-import { AddCircle } from "@mui/icons-material";
+import { ArrowCircleLeft } from "@mui/icons-material";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { screenResize, ScreenSizeState } from "../../store/ScreenView/screenSize";
-import WebpageHeader from "../UI/PageView/WebpageHeader";
+import WebpageHeader from "../../components/PageView/WebpageHeader";
 
-import "./HomePageHeader.css";
+import "./ErrorPageHeader.css";
 
-const HomePageHeader: FC = () => {
+const ErrorPageHeader: FC = () => {
   const screenWidth = useAppSelector(
     (state: RootState) => state.screenSize.screenWidth
   );
@@ -23,15 +23,17 @@ const HomePageHeader: FC = () => {
     dispatch(screenResize(newState));
   });
 
+  console.log(screenWidth);
+
   return (
-    <WebpageHeader header="Employees">
-      <Link className="header__button-link" to="/employee-form" state={{mode: "Add"}}>
+    <WebpageHeader header="Routing Error">
+      <Link className="header__button-link" to="/">
         {screenWidth <= 899 ? (
-          <AddCircle className="header__small-viewport" />
+          <ArrowCircleLeft className="header__small-viewport" />
         ) : (
-          <button type="button" className="header__add-button">
-            <AddCircle />
-            <strong>&nbsp;&nbsp;Add Employee</strong>
+          <button type="button" className="header__back-button">
+            <ArrowCircleLeft />
+            <strong>&nbsp;&nbsp;Homepage</strong>
           </button>
         )}
       </Link>
@@ -39,4 +41,4 @@ const HomePageHeader: FC = () => {
   );
 };
 
-export default HomePageHeader;
+export default ErrorPageHeader;

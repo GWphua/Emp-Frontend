@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { EmployeeFormData } from "../../components/AddEmployee/EmployeeFormBody";
+import { EmployeeFormData } from "../../pages/AddEmployee/EmployeeFormBody";
 import {
   CreatedToast,
   DeletedToast,
   ErrorToast,
-} from "../../components/UI/Toast/ToastTypes";
+} from "../../components/Toast/ToastTypes";
 import {
   CreateEmployeeResponse,
   Employee,

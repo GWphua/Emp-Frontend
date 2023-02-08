@@ -1,9 +1,9 @@
 import { Delete, Edit } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { selectEmployee } from "../../../store/Employees/employees";
-import { Employee } from "../../../store/Employees/employeeType";
-import { useAppDispatch } from "../../../store/hooks";
+import { selectEmployee } from "../../store/Employees/employees";
+import { Employee } from "../../store/Employees/employeeType";
+import { useAppDispatch } from "../../store/hooks";
 import "./ActionsButton.css";
 
 type ICardActions = {

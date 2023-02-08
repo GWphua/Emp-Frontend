@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from "react";
-import Paginator from "../UI/Paginator/Paginator";
+import Paginator from "../../components/Paginator/Paginator";
 import "./HomePageFooter.css";
 
 interface IHomePageFooter {

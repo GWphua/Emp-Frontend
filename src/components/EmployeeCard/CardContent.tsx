@@ -1,4 +1,4 @@
-import { Employee } from "../../../store/Employees/employeeType";
+import { Employee } from "../../store/Employees/employeeType";
 import "./CardContent.css";
 
 type ICardContent = {

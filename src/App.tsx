@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import EmployeeFormPage from "./components/AddEmployee/EmployeeFormPage";
-import HomePage from "./components/EmployeeView/HomePage";
-import ErrorPage from "./components/ErrorPage/ErrorPage";
-import { Toast } from "./components/UI/Toast/Toast";
+import EmployeeFormPage from "./pages/AddEmployee/EmployeeFormPage";
+import HomePage from "./pages/EmployeeView/HomePage";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import { Toast } from "./components/Toast/Toast";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },

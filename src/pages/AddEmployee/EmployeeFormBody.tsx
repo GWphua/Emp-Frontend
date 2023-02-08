@@ -4,10 +4,10 @@ import { RootState } from "../../store";
 import {
   createEmployee,
   unselectEmployee,
-  updateEmployee
+  updateEmployee,
 } from "../../store/Employees/employees";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { InfoToast, InvalidToast } from "../UI/Toast/ToastTypes";
+import { InfoToast, InvalidToast } from "../../components/Toast/ToastTypes";
 import "./EmployeeFormBody.css";
 
 export interface EmployeeFormData {
@@ -94,7 +94,6 @@ const EmployeeFormBody: FC = () => {
   const isValidForm = (employeeFormData: EmployeeFormData): boolean => {
     const isValidFormName = isValidName(employeeFormData.name);
     const isValidFormSalary = validateSalary(employeeFormData.salary);
-
     return isValidFormName && isValidFormSalary;
   };
 

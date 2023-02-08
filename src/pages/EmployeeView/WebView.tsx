@@ -8,9 +8,9 @@ import {
 import { Employee } from "../../store/Employees/employeeType";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { openModal } from "../../store/ScreenView/screenSettings";
-import EmployeeCard from "../UI/EmployeeCard/Card";
-import EmployeeModalContent from "../UI/Modal/EmployeeModalContent";
-import ModalComponent from "../UI/Modal/ModalComponent";
+import EmployeeCard from "../../components/EmployeeCard/Card";
+import EmployeeModalContent from "../../components/Modal/EmployeeModalContent";
+import ModalComponent from "../../components/Modal/ModalComponent";
 import HomePageFooter from "./HomePageFooter";
 import "./WebView.css";
 

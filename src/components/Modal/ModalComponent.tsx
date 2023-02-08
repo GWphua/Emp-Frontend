@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { RootState } from "../../../store";
-import { useAppSelector } from "../../../store/hooks";
+import { RootState } from "../../store";
+import { useAppSelector } from "../../store/hooks";
 import "./ModalComponent.css";
 
 interface IModalComponent {

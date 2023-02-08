@@ -3,9 +3,9 @@ import React from "react";
 import "./Card.css";
 import ActionsButton from "./ActionsButton";
 import CardContent from "./CardContent";
-import { Employee } from "../../../store/Employees/employeeType";
-import { useAppSelector } from "../../../store/hooks";
-import { RootState } from "../../../store";
+import { Employee } from "../../store/Employees/employeeType";
+import { useAppSelector } from "../../store/hooks";
+import { RootState } from "../../store";
 
 interface ICard {
   employee: Employee;

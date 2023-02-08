@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { RootState } from "../../../store";
+import { RootState } from "../../store";
 import {
   deleteEmployee,
   fetchEmployees,
   unselectEmployee
-} from "../../../store/Employees/employees";
-import { useAppDispatch, useAppSelector } from "../../../store/hooks";
-import { closeModal } from "../../../store/ScreenView/screenSettings";
+} from "../../store/Employees/employees";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { closeModal } from "../../store/ScreenView/screenSettings";
 import "./EmployeeModalContent.css";
 
 const EmployeeModalContent: FC = () => {
