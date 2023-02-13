@@ -5,9 +5,13 @@ import EmployeeFormPage from "./pages/AddEmployee/EmployeeFormPage";
 import HomePage from "./pages/EmployeeView/HomePage";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import { Toast } from "./components/Toast/Toast";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage />, errorElement: <ErrorPage /> },
+  { path: "/", element: <LoginPage />, errorElement: <ErrorPage /> },
+  {path: '/signup', element: <SignUpPage />, errorElement: <ErrorPage />},
+  { path: "/homepage", element: <HomePage />, errorElement: <ErrorPage /> },
   {
     path: "/employee-form",
     element: <EmployeeFormPage />,
