@@ -115,7 +115,7 @@ const EmployeeFormBody: FC = () => {
     event.preventDefault();
 
     const employeeFormData = {
-      name: name,
+      name: name.trim(),
       salary: salary,
       department: department,
     } as EmployeeFormData;
