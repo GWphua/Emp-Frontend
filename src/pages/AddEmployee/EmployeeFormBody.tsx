@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import CircularBackground from "../../components/FormBackgrounds/CircularBackground";
 import { InfoToast, InvalidToast } from "../../components/Toast/ToastTypes";
 import { RootState } from "../../store";
 import {
@@ -18,17 +19,6 @@ export interface EmployeeFormData {
 }
 
 const EmployeeFormBody: FC = () => {
-  const screenWidth = useAppSelector(
-    (state: RootState) => state.screenSize.screenWidth
-  );
-
-  const screenHeight = useAppSelector(
-    (state: RootState) => state.screenSize.screenHeight
-  );
-
-  const formStyle =
-    screenHeight < screenWidth ? "form__body__circle" : "form__body__box";
-
   const employee = useAppSelector(
     (state: RootState) => state.employee.referencedEmployee
   );
@@ -52,17 +42,17 @@ const EmployeeFormBody: FC = () => {
   const handleSalaryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSalary(+event.target.value);
   };
-
-  const handleInvalidSubmission = (message: string) => {
-    InvalidToast.showToast(message);
-  };
-
+ 
   const handleDepartmentChange = (event: ChangeEvent<HTMLSelectElement>) => {
     if (event.target.value === "HR" || event.target.value === "PS") {
       setDepartment(event.target.value);
     } else {
       handleInvalidSubmission("Department values can only be 'HR' or 'PS'");
     }
+  };
+  
+  const handleInvalidSubmission = (message: string) => {
+    InvalidToast.showToast(message);
   };
 
   const isValidName = (name: string): boolean => {
@@ -141,7 +131,7 @@ const EmployeeFormBody: FC = () => {
     }
 
     dispatch(unselectEmployee);
-    navigate("/");
+    navigate("/homepage");
   };
 
   const resetHandler = () => {
@@ -152,7 +142,7 @@ const EmployeeFormBody: FC = () => {
   };
 
   return (
-    <div className={formStyle}>
+    <CircularBackground>
       <form onSubmit={submitHandler} onReset={resetHandler}>
         <div className="form__title">Create Employee</div>
         <div className="form__subtitle">Enter Employee details below!</div>
@@ -203,7 +193,7 @@ const EmployeeFormBody: FC = () => {
           </Button>
         </div>
       </form>
-    </div>
+    </CircularBackground>
   );
 };
 
