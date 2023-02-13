@@ -1,4 +1,9 @@
 import { FC } from "react";
+import { useAppDispatch } from "../../store/hooks";
+import {
+  screenResize,
+  ScreenSizeState,
+} from "../../store/ScreenView/screenSize";
 import "./WebpageHeader.css";
 
 interface IHeader {
@@ -7,6 +12,16 @@ interface IHeader {
 }
 
 const WebpageHeader: FC<IHeader> = ({ children, header }) => {
+  const dispatch = useAppDispatch();
+
+  window.addEventListener("resize", () => {
+    const newState: ScreenSizeState = {
+      screenWidth: window.innerWidth,
+      screenHeight: window.innerHeight,
+    };
+    dispatch(screenResize(newState));
+  });
+
   return (
     <div className="header">
       <div className="header__title">
