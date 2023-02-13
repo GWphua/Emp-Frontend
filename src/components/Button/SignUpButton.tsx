@@ -1,30 +1,30 @@
-import { ArrowCircleLeft } from "@mui/icons-material";
+import { AppRegistration } from "@mui/icons-material";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { useAppSelector } from "../../store/hooks";
 import Button from "./Button";
 
-const HomepageButton: FC = () => {
+const SignUpButton: FC = () => {
   const screenWidth = useAppSelector(
     (state: RootState) => state.screenSize.screenWidth
   );
 
   const navigate = useNavigate();
-  const handleBackToMainPage = () => {
-    navigate("/homepage");
+  const signUp = () => {
+    navigate("/signup");
   };
 
   return (
     <Button
-      onClick={handleBackToMainPage}
-      backgroundColor={screenWidth <= 899 ? "transparent" : "green"}
+      onClick={signUp}
+      backgroundColor={screenWidth <= 899 ? "transparent" : "#D65B32"}
       hoverColor={screenWidth <= 899 ? "transparent" : "black"}
     >
-      <ArrowCircleLeft />
-      {screenWidth > 899 && <strong>&nbsp;&nbsp;Homepage</strong>}
+      <AppRegistration />
+      {screenWidth > 899 && <strong>&nbsp;&nbsp;Sign Up</strong>}
     </Button>
   );
 };
 
-export default HomepageButton;
+export default SignUpButton;

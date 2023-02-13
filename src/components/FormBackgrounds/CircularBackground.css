@@ -1,0 +1,25 @@
+.form__body__circle {
+  margin: 0 calc((100vw - 80vh - 4rem) / 2);
+  padding: 2rem 4rem;
+  border-radius: 50%;
+  align-items: center;
+  background-color: #365271;
+  width: 80vh;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
+
+.form__body__box {
+  margin: 0 2rem;
+  padding: 2rem;
+  border-radius: 5px;
+  width: auto;
+  height: auto;
+  align-items: center;
+  background-color: #365271;
+  display: flex;
+  justify-content: center;
+  color: white;
+}
