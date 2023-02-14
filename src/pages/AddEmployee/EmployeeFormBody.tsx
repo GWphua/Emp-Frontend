@@ -1,21 +1,25 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, FormEventHandler, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
-import CircularBackground from "../../components/FormBackgrounds/CircularBackground";
-import { InfoToast, InvalidToast } from "../../components/Toast/ToastTypes";
+import CircularBackground from "../../components/Form/CircularBackground";
+import { handleInvalidSubmission } from "../../components/Form/FormActionHandler";
+
+import { InfoToast } from "../../components/Toast/ToastTypes";
 import { RootState } from "../../store";
 import {
   createEmployee,
   unselectEmployee,
   updateEmployee
 } from "../../store/Employees/employees";
+import { EmployeeDepartmentType } from "../../store/Employees/employeeType";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import "./EmployeeFormBody.css";
+import { isValidEmployeeForm } from "./ValidateEmployee";
 
 export interface EmployeeFormData {
   name: string;
   salary: number;
-  department: "HR" | "PS";
+  department: EmployeeDepartmentType;
 }
 
 const EmployeeFormBody: FC = () => {
@@ -31,7 +35,7 @@ const EmployeeFormBody: FC = () => {
 
   const [name, setName] = useState(defaultFormValues.name);
   const [salary, setSalary] = useState(defaultFormValues.salary);
-  const [department, setDepartment] = useState<"HR" | "PS">(
+  const [department, setDepartment] = useState<EmployeeDepartmentType>(
     defaultFormValues.department
   );
 
@@ -42,50 +46,14 @@ const EmployeeFormBody: FC = () => {
   const handleSalaryChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSalary(+event.target.value);
   };
- 
+
   const handleDepartmentChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.value === "HR" || event.target.value === "PS") {
-      setDepartment(event.target.value);
-    } else {
+    if (event.target.value !== "HR" && event.target.value !== "PS") {
       handleInvalidSubmission("Department values can only be 'HR' or 'PS'");
-    }
-  };
-  
-  const handleInvalidSubmission = (message: string) => {
-    InvalidToast.showToast(message);
-  };
-
-  const isValidName = (name: string): boolean => {
-    if (!name) {
-      handleInvalidSubmission("Name cannot be empty!");
-      return false;
-    } else if (name.length < 4) {
-      handleInvalidSubmission("Name should have a minimum of 4 characters!");
-      return false;
-    } else if (name.length > 30) {
-      handleInvalidSubmission("Name should have a maximum of 30 characters!");
-      return false;
-    } else if (name.match(/\d/)) {
-      handleInvalidSubmission("Name should not contain any numbers!");
-      return false;
+      return;
     }
 
-    return true;
-  };
-
-  const validateSalary = (salary: number): boolean => {
-    if (salary <= 0) {
-      handleInvalidSubmission("Salary cannot be equal or less than 0!");
-      return false;
-    }
-
-    return true;
-  };
-
-  const isValidForm = (employeeFormData: EmployeeFormData): boolean => {
-    const isValidFormName = isValidName(employeeFormData.name);
-    const isValidFormSalary = validateSalary(employeeFormData.salary);
-    return isValidFormName && isValidFormSalary;
+    setDepartment(event.target.value);
   };
 
   const notEdited = (employeeFormData: EmployeeFormData): boolean => {
@@ -101,7 +69,7 @@ const EmployeeFormBody: FC = () => {
   const location = useLocation();
   const { mode } = location.state;
 
-  const submitHandler = async (event: any) => {
+  const submitHandler: FormEventHandler<HTMLElement> = async (event) => {
     event.preventDefault();
 
     const employeeFormData = {
@@ -110,10 +78,10 @@ const EmployeeFormBody: FC = () => {
       department: department,
     } as EmployeeFormData;
 
-    if (!isValidForm(employeeFormData)) {
+    if (!isValidEmployeeForm(employeeFormData)) {
       return;
     }
-
+    
     if (mode === "Add") {
       await dispatch(createEmployee(employeeFormData));
     } else if (mode === "Edit") {

@@ -1,4 +1,4 @@
-import { handleInvalidSubmission } from "../../components/Form/handleInvalidSubmission";
+import { handleInvalidSubmission } from "../../components/Form/FormActionHandler";
 import { SignupFormData } from "./SignUpPageBody";
 
 const isValidUsername = (username: string): boolean => {

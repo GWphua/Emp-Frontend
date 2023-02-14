@@ -1,49 +1,45 @@
 import { ToastPosition, toast } from "react-toastify";
+import { DEFAULT_POSITION, ToastTypes } from "./ToastTypes";
 
-export interface ToastTypes {
-  showToast(message?: string, position?: ToastPosition): void;
-}
-
-export const DEFAULT_POSITION = toast.POSITION.BOTTOM_RIGHT;
-
-export const ErrorToast: ToastTypes = class {
+export const EmployeeCreatedToast: ToastTypes = class {
   public static showToast = (
     message: string = "",
     position: ToastPosition = DEFAULT_POSITION
   ) => {
-    const toastMessage = `ERROR: ${message}`;
+    const toastMessage = `Employee ${message} Created!`;
 
-    toast.error(toastMessage, {
+    toast.success(toastMessage, {
       position,
       autoClose: 5000,
     });
   };
 };
 
-export const InvalidFormToast: ToastTypes = class {
+export const EmployeeUpdatedToast: ToastTypes = class {
   public static showToast = (
     message: string = "",
     position: ToastPosition = DEFAULT_POSITION
   ) => {
-    const toastMessage = `INVALID: ${message}`;
+    const toastMessage = `Employee ${message} Updated!`;
 
-    toast.error(toastMessage, {
-      position,
-      autoClose: 5000,
-    });
-  };
-}
-
-export const InfoToast: ToastTypes = class {
-  public static showToast = (
-    message: string = "",
-    position: ToastPosition = DEFAULT_POSITION
-  ) => {
-    const toastMessage = `INFO: ${message}`;
-
-    toast.info(toastMessage, {
+    toast.success(toastMessage, {
       position,
       autoClose: 5000,
     });
   };
 };
+
+export const EmployeeDeletedToast: ToastTypes = class {
+  public static showToast = (
+    message: string = "",
+    position: ToastPosition = DEFAULT_POSITION
+  ) => {
+    const toastMessage = `Employee ${message} Deleted!`;
+
+    toast.warn(toastMessage, {
+      position,
+      autoClose: 5000,
+    });
+  };
+};
+

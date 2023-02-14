@@ -1,13 +1,11 @@
 import { ChangeEvent, FC, FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
+import CircularBackground from "../../components/Form/CircularBackground";
 import {
   handleInvalidSubmission,
-  handleReset,
-} from "../../components/Form/handleInvalidSubmission";
-import CircularBackground from "../../components/FormBackgrounds/CircularBackground";
-import { InfoToast } from "../../components/Toast/ToastTypes";
-import { SignupToast } from "../../components/Toast/UserToastTypes";
+  handleReset
+} from "../../components/Form/FormActionHandler";
 import { useAppDispatch } from "../../store/hooks";
 import { signup } from "../../store/Users/users";
 import { UserDepartmentType } from "../../store/Users/userType";
@@ -64,10 +62,11 @@ const SignUpPageBody: FC = () => {
       return;
     }
 
-    await dispatch(signup(signupFormData));
+    const signupResponse = await dispatch(signup(signupFormData));
 
-    SignupToast.showToast(signupFormData.username);
-    navigate("/");
+    if (signupResponse.payload !== undefined) {
+      navigate("/");
+    }
   };
 
   const resetHandler = () => {
@@ -81,7 +80,9 @@ const SignUpPageBody: FC = () => {
     <CircularBackground>
       <form onSubmit={signUpHandler} onReset={resetHandler}>
         <div className="form__title">Sign Up</div>
-        <div className="form__subtitle">Enter details below to log in!</div>
+        <div className="form__subtitle">
+          Enter details below to create your account!
+        </div>
         <div className="form__input-container">
           <label>Username</label>
           <input

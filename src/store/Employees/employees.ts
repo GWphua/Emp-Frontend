@@ -1,17 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { EmployeeFormData } from "../../pages/AddEmployee/EmployeeFormBody";
 import {
-  CreatedToast,
-  DeletedToast,
-  ErrorToast,
-} from "../../components/Toast/ToastTypes";
+  EmployeeCreatedToast,
+  EmployeeDeletedToast,
+  EmployeeUpdatedToast
+} from "../../components/Toast/EmployeeToastTypes";
+import { ErrorToast } from "../../components/Toast/ToastTypes";
+import { EmployeeFormData } from "../../pages/AddEmployee/EmployeeFormBody";
 import {
   CreateEmployeeResponse,
   Employee,
   EmployeesState,
   GetAllEmployeesResponse,
-  UpdateEmployeeResponse,
+  UpdateEmployeeResponse
 } from "./employeeType";
 
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
@@ -50,7 +51,7 @@ export const createEmployee = createAsyncThunk(
         responseType: "json",
       });
 
-      CreatedToast.showToast(response.data.name);
+      EmployeeCreatedToast.showToast(response.data.name);
       return response.data as CreateEmployeeResponse;
     } catch (error: unknown) {
       handleError(error);
@@ -72,7 +73,7 @@ export const updateEmployee = createAsyncThunk(
         responseType: "json",
       });
 
-      CreatedToast.showToast(response.data.name);
+      EmployeeUpdatedToast.showToast(response.data.name);
       return response.data as UpdateEmployeeResponse;
     } catch (error: unknown) {
       handleError(error);
@@ -90,7 +91,7 @@ export const deleteEmployee = createAsyncThunk(
         responseType: "json",
       });
 
-      DeletedToast.showToast(deleteEmployeeData.name);
+      EmployeeDeletedToast.showToast(deleteEmployeeData.name);
       return;
     } catch (error: unknown) {
       handleError(error);

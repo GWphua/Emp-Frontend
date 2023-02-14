@@ -1,7 +1,7 @@
 import { FC, ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
-import CircularBackground from "../../components/FormBackgrounds/CircularBackground";
+import CircularBackground from "../../components/Form/CircularBackground";
 import { InfoToast } from "../../components/Toast/ToastTypes";
 import "./LoginPageBody.css";
 
