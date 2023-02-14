@@ -4,7 +4,7 @@ export interface ToastTypes {
   showToast(message?: string, position?: ToastPosition): void;
 }
 
-const DEFAULT_POSITION = toast.POSITION.BOTTOM_RIGHT;
+export const DEFAULT_POSITION = toast.POSITION.BOTTOM_RIGHT;
 
 export const ErrorToast: ToastTypes = class {
   public static showToast = (
@@ -62,7 +62,7 @@ export const DeletedToast: ToastTypes = class {
   };
 };
 
-export const InvalidToast: ToastTypes = class {
+export const InvalidFormToast: ToastTypes = class {
   public static showToast = (
     message: string = "",
     position: ToastPosition = DEFAULT_POSITION
@@ -74,7 +74,7 @@ export const InvalidToast: ToastTypes = class {
       autoClose: 5000,
     });
   };
-};
+}
 
 export const InfoToast: ToastTypes = class {
   public static showToast = (
