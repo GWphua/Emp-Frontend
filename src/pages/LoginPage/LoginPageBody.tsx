@@ -1,9 +1,17 @@
-import { FC, ChangeEvent, useState } from "react";
+import { ChangeEvent, FC, FormEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import CircularBackground from "../../components/Form/CircularBackground";
-import { InfoToast } from "../../components/Toast/ToastTypes";
+import { handleReset } from "../../components/Form/FormActionHandler";
+import { useAppDispatch } from "../../store/hooks";
+import { login } from "../../store/Users/users";
 import "./LoginPageBody.css";
+import { isValidLoginForm } from "./validateLogin";
+
+export interface LoginFormData {
+  username: string;
+  password: string;
+}
 
 const LoginBody: FC = () => {
   const [username, setUsername] = useState("");
@@ -17,17 +25,31 @@ const LoginBody: FC = () => {
     setPassword(event.target.value);
   };
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const loginHandler: FormEventHandler<HTMLElement> = async (event) => {
+    event.preventDefault();
 
-  const loginHandler = () => {
-    InfoToast.showToast("Logging in...");
-    navigate("/homepage");
+    const loginFormData = {
+      username: username.trim(),
+      password: password.trim(),
+    } as LoginFormData;
+
+    if (!isValidLoginForm(loginFormData)) {
+      return;
+    }
+
+    const result = await dispatch(login(loginFormData));
+
+    if (result.payload) {
+      navigate("/homepage");
+    }
   };
 
   const resetHandler = () => {
     setUsername("");
     setPassword("");
-    InfoToast.showToast("Form Reset");
+    handleReset();
   };
 
   return (

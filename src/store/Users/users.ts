@@ -1,11 +1,14 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ErrorToast } from "../../components/Toast/ToastTypes";
-import { SignupToast } from "../../components/Toast/UserToastTypes";
+import { LoginToast, SignupToast } from "../../components/Toast/UserToastTypes";
+import { LoginFormData } from "../../pages/LoginPage/LoginPageBody";
 import { SignupFormData } from "../../pages/SignUpPage/SignUpPageBody";
-import { SignupResponse } from "./userType";
+import { LoginResponse, SignupResponse, UsersState } from "./userType";
 
 const URL = "http://localhost:3000/employee/";
+
+const initialState = { authorized: false } as UsersState;
 
 interface AxiosError {
   message: string;
@@ -47,7 +50,7 @@ export const signup = createAsyncThunk(
         data: signupFormData,
         responseType: "json",
       });
-      console.log(response.data);
+
       SignupToast.showToast(response.data.username);
       return response.data as SignupResponse;
     } catch (error: unknown) {
@@ -56,23 +59,49 @@ export const signup = createAsyncThunk(
   }
 );
 
-// export const login = createAsyncThunk("login", async (loginFormData: LoginFormData) => {
-//   try {
+export const login = createAsyncThunk(
+  "login",
+  async (loginFormData: LoginFormData) => {
+    try {
+      const response = await axios({
+        method: "post",
+        url: URL + "login",
+        data: loginFormData,
+        responseType: "json",
+      });
 
-//   } catch (error: unknown) {
-//     handleError(error);
-//   }
-// })
+      LoginToast.showToast(response.data.username);
+      return response.data as LoginResponse;
+    } catch (error: unknown) {
+      handleError(error);
+      return null;
+    }
+  }
+);
 
 const usersSlice = createSlice({
   name: "users",
-  initialState: {},
-  reducers: {},
+  initialState,
+  reducers: {
+    logout: (state: UsersState) => {
+      state.authorized = false;
+    },
+  },
   extraReducers: (builder) => {
-    //     builder.addCase(
-    // // Add code
-    //       );
+    builder.addCase(
+      login.fulfilled,
+      (state: UsersState, action: PayloadAction<LoginResponse | null>) => {
+        if (!action.payload) {
+          return;
+        }
+
+        state.department = action.payload.department;
+        state.username = action.payload.username;
+        state.authorized = true;
+      }
+    );
   },
 });
 
+export const { logout } = usersSlice.actions;
 export default usersSlice.reducer;
