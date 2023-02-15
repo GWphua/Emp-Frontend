@@ -1,10 +1,11 @@
-import { Logout } from "@mui/icons-material";
+import { logout } from "../../store/Users/users";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { logout } from "../../store/Users/users";
+import { LogoutToast } from "../Toast/UserToastTypes";
 import Button from "./Button";
+import { Logout } from "@mui/icons-material";
 
 const LogoutButton: FC = () => {
   const screenWidth = useAppSelector(
@@ -15,6 +16,7 @@ const LogoutButton: FC = () => {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logout());
+    LogoutToast.showToast();
     navigate("/");
   };
 

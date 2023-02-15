@@ -6,12 +6,5 @@ export type SignupResponse = {
 };
 
 export type LoginResponse = {
-  username: string;
-  department: UserDepartmentType;
-};
-
-export type UsersState = {
-  authorized: boolean;
-  username?: string;
-  department?: UserDepartmentType;
+  loggedIn: boolean;
 };

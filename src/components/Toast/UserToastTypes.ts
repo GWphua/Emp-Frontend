@@ -29,3 +29,17 @@ export const LoginToast: ToastTypes = class {
     });
   };
 };
+
+export const LogoutToast: ToastTypes = class {
+  public static showToast = (
+    message: string = "You have logged out.",
+    position: ToastPosition = DEFAULT_POSITION
+  ) => {
+    const toastMessage = message;
+
+    toast.warn(toastMessage, {
+      position,
+      autoClose: 5000,
+    });
+  };
+};

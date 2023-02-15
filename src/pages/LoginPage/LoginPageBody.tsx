@@ -5,6 +5,7 @@ import CircularBackground from "../../components/Form/CircularBackground";
 import { handleReset } from "../../components/Form/FormActionHandler";
 import { useAppDispatch } from "../../store/hooks";
 import { login } from "../../store/Users/users";
+import { LoginResponse } from "../../store/Users/userType";
 import "./LoginPageBody.css";
 import { isValidLoginForm } from "./validateLogin";
 
@@ -41,7 +42,7 @@ const LoginBody: FC = () => {
 
     const result = await dispatch(login(loginFormData));
 
-    if (result.payload) {
+    if ((result.payload as LoginResponse).loggedIn) {
       navigate("/homepage");
     }
   };
