@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ErrorToast } from "../components/Toast/ToastTypes";
 
 interface AxiosError {
@@ -27,4 +28,29 @@ export const handleError = (error: unknown) => {
         axiosError.response.data!.errorMessage
     );
   }
+};
+
+export const setToken = (token: string) => {
+  localStorage.setItem("token", JSON.stringify(token));
+};
+
+export const getToken = (): string | null => {
+  const tokenString = localStorage.getItem("token");
+  return tokenString ? JSON.parse(tokenString) : null;
+};
+
+export const removeToken = () => {
+  localStorage.removeItem("token");
+};
+
+export const setAuthorizationToken = () => {
+  const token = getToken();
+
+  if (token) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
+  }
+};
+
+export const removeAuthorizationToken = () => {
+  delete axios.defaults.headers.common["Authorization"];
 };

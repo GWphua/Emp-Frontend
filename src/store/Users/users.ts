@@ -3,7 +3,14 @@ import axios from "axios";
 import { SignupToast } from "../../components/Toast/UserToastTypes";
 import { LoginFormData } from "../../pages/LoginPage/LoginPageBody";
 import { SignupFormData } from "../../pages/SignUpPage/SignUpPageBody";
-import { handleError } from "../handlers";
+import {
+  getToken,
+  handleError,
+  removeAuthorizationToken,
+  removeToken,
+  setAuthorizationToken,
+  setToken,
+} from "../handlers";
 import { LoginResponse, SignupResponse } from "./userType";
 
 const URL = "http://localhost:3000/employee/";
@@ -40,8 +47,9 @@ export const login = createAsyncThunk(
       });
 
       const token = response.data.token;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      console.log(axios.defaults.headers.common["Authorization"]);
+      setToken(token);
+      setAuthorizationToken();
+      console.log(getToken());
 
       return { loggedIn: true } as LoginResponse;
     } catch (error: unknown) {
@@ -56,7 +64,8 @@ const usersSlice = createSlice({
   initialState: {},
   reducers: {
     logout: () => {
-      delete axios.defaults.headers.common["Authorization"];
+      removeAuthorizationToken();
+      removeToken();
     },
   },
 });

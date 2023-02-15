@@ -3,22 +3,23 @@ import axios from "axios";
 import {
   EmployeeCreatedToast,
   EmployeeDeletedToast,
-  EmployeeUpdatedToast
+  EmployeeUpdatedToast,
 } from "../../components/Toast/EmployeeToastTypes";
 import { EmployeeFormData } from "../../pages/AddEmployee/EmployeeFormBody";
-import { handleError } from "../handlers";
+import { handleError, setAuthorizationToken } from "../handlers";
 import {
   CreateEmployeeResponse,
   Employee,
   EmployeesState,
   GetAllEmployeesResponse,
-  UpdateEmployeeResponse
+  UpdateEmployeeResponse,
 } from "./employeeType";
 
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
 
 export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
   try {
+    setAuthorizationToken();
     const response = await axios({
       method: "get",
       url: EMPLOYEE_URL,
@@ -36,6 +37,7 @@ export const createEmployee = createAsyncThunk(
   "createEmployee",
   async (createEmployeeData: EmployeeFormData) => {
     try {
+      setAuthorizationToken();
       const response = await axios({
         method: "post",
         url: EMPLOYEE_URL,
@@ -58,6 +60,7 @@ export const updateEmployee = createAsyncThunk(
     employeeFormData: EmployeeFormData;
   }) => {
     try {
+      setAuthorizationToken();
       const response = await axios({
         method: "put",
         url: EMPLOYEE_URL + updateEmployeeData.id,
@@ -77,6 +80,7 @@ export const deleteEmployee = createAsyncThunk(
   "deleteEmployee",
   async (deleteEmployeeData: Employee) => {
     try {
+      setAuthorizationToken();
       await axios({
         method: "delete",
         url: EMPLOYEE_URL + deleteEmployeeData.id,
