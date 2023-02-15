@@ -1,43 +1,12 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ErrorToast } from "../../components/Toast/ToastTypes";
-import { LoginToast, SignupToast } from "../../components/Toast/UserToastTypes";
+import { SignupToast } from "../../components/Toast/UserToastTypes";
 import { LoginFormData } from "../../pages/LoginPage/LoginPageBody";
 import { SignupFormData } from "../../pages/SignUpPage/SignUpPageBody";
-import { LoginResponse, SignupResponse, UsersState } from "./userType";
+import { handleError } from "../handlers";
+import { LoginResponse, SignupResponse } from "./userType";
 
 const URL = "http://localhost:3000/employee/";
-
-const initialState = { authorized: false } as UsersState;
-
-interface AxiosError {
-  message: string;
-  response: {
-    status: number;
-    statusText: string;
-    data?: { errorMessage: string };
-  };
-}
-
-const handleError = (error: unknown) => {
-  if (error === null || error === undefined) {
-    ErrorToast.showToast("Failed to get data from backend.");
-    return;
-  }
-
-  const axiosError = error as AxiosError;
-  if (axiosError.response.status === 404) {
-    ErrorToast.showToast(
-      axiosError.response.statusText + ": " + axiosError.message
-    );
-  } else {
-    ErrorToast.showToast(
-      axiosError.response.statusText +
-        ": " +
-        axiosError.response.data!.errorMessage
-    );
-  }
-};
 
 // Remember to add signup fields later.
 export const signup = createAsyncThunk(
@@ -70,36 +39,25 @@ export const login = createAsyncThunk(
         responseType: "json",
       });
 
-      LoginToast.showToast(response.data.username);
-      return response.data as LoginResponse;
+      const token = response.data.token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      console.log(axios.defaults.headers.common["Authorization"]);
+
+      return { loggedIn: true } as LoginResponse;
     } catch (error: unknown) {
       handleError(error);
-      return null;
+      return { loggedIn: false } as LoginResponse;
     }
   }
 );
 
 const usersSlice = createSlice({
   name: "users",
-  initialState,
+  initialState: {},
   reducers: {
-    logout: (state: UsersState) => {
-      state.authorized = false;
+    logout: () => {
+      delete axios.defaults.headers.common["Authorization"];
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(
-      login.fulfilled,
-      (state: UsersState, action: PayloadAction<LoginResponse | null>) => {
-        if (!action.payload) {
-          return;
-        }
-
-        state.department = action.payload.department;
-        state.username = action.payload.username;
-        state.authorized = true;
-      }
-    );
   },
 });
 

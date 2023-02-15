@@ -5,8 +5,8 @@ import {
   EmployeeDeletedToast,
   EmployeeUpdatedToast
 } from "../../components/Toast/EmployeeToastTypes";
-import { ErrorToast } from "../../components/Toast/ToastTypes";
 import { EmployeeFormData } from "../../pages/AddEmployee/EmployeeFormBody";
+import { handleError } from "../handlers";
 import {
   CreateEmployeeResponse,
   Employee,
@@ -16,14 +16,6 @@ import {
 } from "./employeeType";
 
 const EMPLOYEE_URL = "http://localhost:3000/employee/";
-
-const handleError = (error: unknown) => {
-  if (error === null || error === undefined) {
-    ErrorToast.showToast("Failed to get data from backend.");
-  } else {
-    ErrorToast.showToast(error.toString());
-  }
-};
 
 export const fetchEmployees = createAsyncThunk("getAllEmployees", async () => {
   try {
